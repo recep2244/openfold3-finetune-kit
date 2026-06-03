@@ -45,6 +45,37 @@ OpenFold3 input pitfalls (dots in query names, chain-level MSA keys, alignment f
 structures with OpenStructure, and prints a comparison table. Interface lDDT, DockQ, and
 lDDT-PLI should rise and ligand RMSD should fall while global lDDT holds steady.
 
+## Interpreting the scores
+
+Two different families of numbers appear, and they answer different questions.
+
+**Prediction confidence** — emitted by the model with every prediction, *no experimental
+structure required*. Use these to triage predictions you can't yet validate:
+
+| Metric | What it is | Standard | Stringent |
+|---|---|---|---|
+| pLDDT | Per-residue confidence (0–100) | > 85 | > 90 |
+| pTM | Global fold confidence (0–1) | > 0.70 | > 0.80 |
+| ipTM | Interface confidence (0–1) | > 0.50 | > 0.60 |
+| PAE (interface) | Predicted aligned error (Å) | < 12 | < 10 |
+
+**Evaluation metrics** — computed by `evaluate.sh` *against the experimental structure* on the
+held-out set; this is how you judge the fine-tune:
+
+| Metric | Range | Good | Direction |
+|---|---|---|---|
+| lDDT (global) | 0–1 | should **hold** vs baseline | higher |
+| interface lDDT | 0–1 | rises with a good fine-tune | higher |
+| DockQ | 0–1 | ≥0.49 medium, ≥0.80 high (CAPRI) | higher |
+| lDDT-PLI | 0–1 | rises with a good fine-tune | higher |
+| ligand RMSD | Å | < 2 Å is a correct pose | lower |
+
+!!! warning "Scores are filters, not affinity predictors"
+    Individual confidence metrics have only modest correlation with experimental success
+    (single-metric ROC AUC ≈ 0.65). Treat them as **pre-screening filters** that eliminate
+    poor predictions, not as a ranking of binding affinity. Judge a fine-tune on the *shift*
+    in interface metrics across the held-out set — and always confirm global lDDT did not drop.
+
 ## Forgetting check
 A fine-tune adapts to one target and may regress on unrelated ones. After a run, predict a
 few unrelated targets with both checkpoints to confirm general performance is preserved.
