@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Note: CI cannot run GPU prediction or training (no GPU runners here).
+# It lints and validates the kit's scripts, configs, notebooks, and docs only.
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ShellCheck (scripts)
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: scripts
+          severity: warning
+
+      - name: Bash syntax check
+        run: for s in scripts/*.sh docker/entrypoint.sh; do bash -n "$s"; done
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ruff (Python lint + format check)
+        run: |
+          pip install --quiet ruff
+          ruff check .
+          ruff format --check .
+
+      - name: YAML lint (configs + workflows)
+        run: |
+          pip install --quiet yamllint
+          yamllint -d "{extends: relaxed, rules: {line-length: disable}}" configs/ .github/
+
+      - name: Validate notebooks
+        run: |
+          pip install --quiet nbformat
+          python - <<'PY'
+          import glob, nbformat
+          for f in glob.glob("notebooks/*.ipynb"):
+              nbformat.read(f, as_version=4)
+              print("ok", f)
+          PY
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build docs (strict)
+        run: |
+          pip install --quiet mkdocs-material
+          mkdocs build --strict

@@ -1,0 +1,38 @@
+name: Bug report
+description: Something in the kit did not work
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected, and what happened instead.
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Which step
+      options:
+        - setup / verify_setup.sh
+        - prepare_data.sh
+        - training (run_all.sh / run_small_test.sh)
+        - evaluate.sh
+        - Colab / Docker / Hugging Face
+    validations:
+      required: true
+  - type: textarea
+    id: command-output
+    attributes:
+      label: Command and output
+      description: The exact command and the error (plus the tail of any *.log).
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: GPU + VRAM, OS, `pixi --version`, OpenFold3 commit / install method.
+    validations:
+      required: true

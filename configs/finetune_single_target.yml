@@ -1,0 +1,270 @@
+# =============================================================================
+# OpenFold3 single-target fine-tune  ·  faithful to examples/training_yamls/
+# finetune_1.yml, with the distillation datasets KEPT to fight forgetting.
+# -----------------------------------------------------------------------------
+# This is the "do it properly" version of finetune_lowN_single_gpu.yml:
+#   * structure-loss stage (same as finetune_1)
+#   * your target as 'weighted-pdb' at sampling weight 0.5
+#   * OF3 distillation sets fill the other 0.5 so general ability is preserved
+#   * low-n LR/warmup/EMA overrides (Apheris PDE10A recipe)
+#   * loads the public of3-p2-155k.pt DIRECTLY
+#
+# The distillation datasets need OF3's distillation data (monomer/RNA/disordered).
+# Either download them (s3://openfold3-data/, see README/portal) OR comment out
+# each block you don't have AND raise weighted-pdb 'weight' back to 1.0 (expect
+# more forgetting — run the Section 6 forgetting check either way).
+#
+# Verified against finetune_1.yml + model_config.py defaults.
+# Launch:  run_openfold train --runner-yaml finetune_single_target.yml --seed 42
+# =============================================================================
+
+experiment_settings:
+  mode: train
+  output_dir: ./finetune_single_target_output
+  seed: 42
+  restart_checkpoint_path: /root/.openfold3/of3-p2-155k.pt   # <<< EDIT (abs path) >>>
+  ckpt_load_settings:
+    manual_checkpoint_loading: true
+    init_from_ema_weights: false
+    restore_lr_scheduler: false
+    restore_time_step: false
+    strict_loading: false
+
+data_module_args:
+  batch_size: 1
+  num_workers: 16
+  epoch_len: 128000          # ckpt ~every 500 steps (finetune_1 value)
+
+logging_config:
+  log_lr: true
+  wandb_config:
+    project: openfold3-finetune
+    entity: your-wandb-entity        # <<< EDIT >>>
+    experiment_name: single-target
+    group: null
+    id: null
+
+pl_trainer_args:
+  devices: 1                 # bump to 8 + set num_nodes for the real finetune_1 scale
+  num_nodes: 1
+  precision: bf16-mixed
+  max_epochs: -1
+  log_every_n_steps: 50
+  mpi_plugin: false
+  deepspeed_config_path: null
+
+checkpoint_config:
+  every_n_epochs: 1
+  auto_insert_metric_name: false
+  save_last: true
+  save_top_k: -1
+
+model_update:
+  presets:
+    - train
+  custom:
+    settings:
+      model_selection_weight_scheme: fine_tuning
+      # ---- low-n overrides (defaults: lr 1.8e-3, warmup 1000, ema 0.999) ----
+      optimizer:
+        learning_rate: 0.0003
+      lr_scheduler:
+        warmup_no_steps: 50
+      ema:
+        decay: 0.99
+      # ---- memory control from finetune_1 ----
+      memory:
+        train:
+          msa_module:
+            swiglu_seq_chunk_size: 1024
+    architecture:
+      shared:
+        use_confidence_emb_prob: 0.8
+        diffusion:
+          no_samples: 32
+          use_conditioning_prob: 0.8
+      loss_module:
+        diffusion:
+          chunk_size: 2
+
+dataset_configs:
+  train:
+    # ===== YOUR TARGET =====
+    weighted-pdb:
+      dataset_class: WeightedPDBDataset
+      weight: 0.5
+      config:
+        debug_mode: false
+        template:
+          n_templates: 4
+          take_top_k: false
+        crop:
+          token_crop:
+            enabled: true
+            token_budget: 640
+            crop_weights:
+              contiguous: 0.2
+              spatial: 0.4
+              spatial_interface: 0.4
+          chain_crop:
+            enabled: true
+        loss:
+          loss_weights:
+            bond: 4.0
+            smooth_lddt: 0.0
+
+    # ===== DISTILLATION SETS (keep general ability) — comment out if unavailable =====
+    long-monomer-distillation:
+      dataset_class: ProteinMonomerDataset
+      weight: 0.495
+      config:
+        debug_mode: false
+        template: {n_templates: 4, take_top_k: false}
+        sample_in_order: true
+        crop:
+          token_crop:
+            enabled: true
+            token_budget: 640
+            crop_weights: {contiguous: 0.25, spatial: 0.75, spatial_interface: 0.0}
+        loss:
+          loss_weights: {bond: 4.0, smooth_lddt: 0.0, experimentally_resolved: 0.0, plddt: 0.0, pae: 0.0, pde: 0.0}
+
+    short-monomer-distillation:
+      dataset_class: ProteinMonomerDataset
+      weight: 0.005
+      config:
+        debug_mode: false
+        template: {n_templates: 4, take_top_k: false}
+        sample_in_order: true
+        crop:
+          token_crop:
+            enabled: true
+            token_budget: 640
+            crop_weights: {contiguous: 0.25, spatial: 0.75, spatial_interface: 0.0}
+        loss:
+          loss_weights: {bond: 4.0, smooth_lddt: 0.0, experimentally_resolved: 0.0, plddt: 0.0, pae: 0.0, pde: 0.0}
+
+    disordered-pdb:
+      dataset_class: DisorderedPDBDataset
+      weight: 0.01
+      config:
+        debug_mode: false
+        template: {n_templates: 4, take_top_k: false}
+        disable_non_protein_diffusion_weights: false
+        crop:
+          token_crop:
+            enabled: true
+            token_budget: 640
+            crop_weights: {contiguous: 0.2, spatial: 0.4, spatial_interface: 0.4}
+          chain_crop:
+            enabled: true
+        loss:
+          loss_weights: {bond: 4.0, smooth_lddt: 0.0, experimentally_resolved: 0.0, plddt: 0.0, pae: 0.0, pde: 0.0}
+
+    RNA-monomer-distillation:
+      dataset_class: RNAMonomerDataset
+      weight: 0.05
+      config:
+        debug_mode: false
+        crop:
+          token_crop:
+            enabled: true
+            token_budget: 640
+            crop_weights: {contiguous: 0.25, spatial: 0.75, spatial_interface: 0.0}
+        loss:
+          loss_weights: {bond: 4.0, smooth_lddt: 0.0, experimentally_resolved: 0.0, plddt: 0.0, pae: 0.0, pde: 0.0}
+
+  validation:
+    val-weighted-pdb:
+      dataset_class: ValidationPDBDataset
+      config:
+        debug_mode: false
+        msa: {subsample_main: false}
+        template: {n_templates: 4, take_top_k: true}
+        crop:
+          token_crop:
+            enabled: false
+
+dataset_paths:
+  # ===== YOUR TARGET — from prepare_data.sh =====
+  weighted-pdb:
+    alignments_directory: none
+    alignment_db_directory: none
+    alignment_array_directory:   /shared/openfold3/finetune/alignment_arrays                       # <<< EDIT >>>
+    dataset_cache_file:          /shared/openfold3/finetune/dataset_caches/training_cache.json     # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/finetune/preprocessed/structure_files           # <<< EDIT >>>
+    target_structure_file_format: npz
+    reference_molecule_directory: /shared/openfold3/finetune/preprocessed/reference_mols           # <<< EDIT >>>
+    template_cache_directory: none
+    template_structure_array_directory: none
+    template_structures_directory: none
+    template_file_format: npz
+    ccd_file: null
+
+  # ===== DISTILLATION DATA PATHS (OF3 sets; from s3://openfold3-data/) =====
+  # Fill these in only if you kept the distillation dataset_configs above.
+  long-monomer-distillation:
+    alignments_directory: null
+    alignment_db_directory: null
+    alignment_array_directory:   /shared/openfold3/monomer_distillation_sets_v2/long_monomers/preprocessed   # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/monomer_distillation_sets_v2/long_monomers/preprocessed   # <<< EDIT >>>
+    target_structure_file_format: npz
+    dataset_cache_file:          /shared/openfold3/monomer_distillation_sets_v2/long_monomers/long_monomer_cache  # <<< EDIT >>>
+    reference_molecule_directory: /shared/openfold3/monomer_distillation_sets_v2/shared/reference_mols       # <<< EDIT >>>
+    template_structures_directory: null
+    template_file_format: npz
+    ccd_file: null
+    use_roda_monomer_format: true
+
+  short-monomer-distillation:
+    alignments_directory: null
+    alignment_db_directory: null
+    alignment_array_directory:   /shared/openfold3/monomer_distillation_sets_v2/short_monomers/preprocessed  # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/monomer_distillation_sets_v2/short_monomers/preprocessed  # <<< EDIT >>>
+    target_structure_file_format: npz
+    dataset_cache_file:          /shared/openfold3/monomer_distillation_sets_v2/short_monomers/short_monomer_cache.json  # <<< EDIT >>>
+    reference_molecule_directory: /shared/openfold3/monomer_distillation_sets_v2/shared/reference_mols       # <<< EDIT >>>
+    template_structures_directory: null
+    template_file_format: npz
+    ccd_file: null
+    use_roda_monomer_format: true
+
+  disordered-pdb:
+    alignments_directory: none
+    alignment_db_directory: none
+    alignment_array_directory:   /shared/openfold3/pdb_training_set/alignment_arrays                         # <<< EDIT >>>
+    dataset_cache_file:          /shared/openfold3/pdb_training_set/dataset_caches/disordered_cache.json     # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/pdb_training_set/preprocessed_pdb_data/disordered/structure_files  # <<< EDIT >>>
+    target_structure_file_format: npz
+    reference_molecule_directory: /shared/openfold3/pdb_training_set/preprocessed_pdb_data/standard/reference_mols    # <<< EDIT >>>
+    template_structures_directory: none
+    template_file_format: npz
+    ccd_file: null
+
+  RNA-monomer-distillation:
+    alignments_directory: null
+    alignment_db_directory: null
+    alignment_array_directory:   /shared/openfold3/rna_distillation_set/rna_monomer_preprocessed_cache       # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/rna_distillation_set/rna_monomer_preprocessed_cache       # <<< EDIT >>>
+    target_structure_file_format: npz
+    dataset_cache_file:          /shared/openfold3/rna_distillation_set/training_cache_RNA_monomer.json      # <<< EDIT >>>
+    reference_molecule_directory: /shared/openfold3/rna_distillation_set/reference_mols                      # <<< EDIT >>>
+    template_structures_directory: null
+    template_file_format: npz
+    ccd_file: null
+    use_roda_monomer_format: true
+
+  # ===== VALIDATION — your held-out set from prepare_data.sh =====
+  val-weighted-pdb:
+    alignments_directory: none
+    alignment_db_directory: none
+    alignment_array_directory:   /shared/openfold3/finetune/alignment_arrays                       # <<< EDIT >>>
+    dataset_cache_file:          /shared/openfold3/finetune/dataset_caches/validation_cache.json   # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/finetune/preprocessed/structure_files           # <<< EDIT >>>
+    target_structure_file_format: npz
+    reference_molecule_directory: /shared/openfold3/finetune/preprocessed/reference_mols           # <<< EDIT >>>
+    template_cache_directory: none
+    template_structure_array_directory: none
+    template_structures_directory: none
+    template_file_format: npz
+    ccd_file: null

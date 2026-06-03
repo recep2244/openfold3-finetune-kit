@@ -1,0 +1,41 @@
+# ---- model weights & large binaries (never commit) ----
+*.pt
+*.ckpt
+*.npz
+*.bcif
+*.sdf
+
+# ---- pipeline working dirs / outputs ----
+openfold3_run/
+train_out/
+finetune_*_output/
+eval/
+smoke_test/
+alignment_arrays/
+alignment_db/
+dataset_caches/
+preprocessed/
+cifs/
+colabfold_raw/
+*runner*.yml
+
+# ---- logs ----
+*.log
+_setup*.log
+_smoke*.log
+
+# ---- docs site build ----
+site/
+
+# ---- env / tooling ----
+.pixi/
+.ruff_cache/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+
+# ---- local clones of upstream (kept outside the repo) ----
+openfold-3/

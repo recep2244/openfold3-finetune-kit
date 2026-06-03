@@ -1,0 +1,28 @@
+# Convenience wrapper around the kit image.
+#   docker compose -f docker/docker-compose.yml run --rm openfold3 verify
+#   docker compose -f docker/docker-compose.yml run --rm openfold3 run_all
+#
+# Requires the NVIDIA Container Toolkit on the host.
+services:
+  openfold3:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: openfold3-finetune-kit:latest
+    # GPU access
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - of3-weights:/weights        # ~2 GB model weights, downloaded once, persisted
+      - ./../work:/work             # pipeline outputs land here on the host
+      - ./../data:/data             # optional: put your own inputs here
+    # default command; override on the CLI, e.g. `run --rm openfold3 run_all`
+    command: ["verify"]
+
+volumes:
+  of3-weights:

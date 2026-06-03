@@ -1,0 +1,9 @@
+# Normalize line endings
+* text=auto eol=lf
+*.sh text eol=lf
+
+# Notebooks: treat as text but don't let GitHub language stats skew to Jupyter
+*.ipynb linguist-language=Python linguist-detectable=false
+
+# Mark generated/vendored docs (optional)
+docs/finetuning_plan.md linguist-documentation

@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "openfold3-finetune-kit"
+message: "If you use this kit, please cite it and the underlying OpenFold3 model."
+type: software
+authors:
+  - given-names: Recep
+    family-names: Adiyaman
+    email: recepadiyaman2244@gmail.com
+repository-code: "https://github.com/recep2244/openfold3-finetune-kit"
+abstract: >-
+  A no-code toolkit for fine-tuning OpenFold3 on a small set of protein-ligand
+  structures of a specific target, with end-to-end data preparation, training,
+  and baseline-vs-finetuned evaluation. Includes Colab notebooks, a Docker
+  image, and Hugging Face inference assets.
+license: Apache-2.0
+references:
+  - type: software
+    title: "OpenFold3"
+    authors:
+      - name: "The OpenFold Consortium / AlQuraishi Lab, Columbia University"
+    repository-code: "https://github.com/aqlaboratory/openfold-3"
+    license: Apache-2.0

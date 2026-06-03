@@ -1,0 +1,15 @@
+.git
+.github
+docs
+notebooks
+huggingface
+*.log
+_setup*.log
+_smoke*.log
+openfold3_run/
+train_out/
+**/__pycache__/
+.ipynb_checkpoints/
+.pixi/
+*.pt
+*.ckpt

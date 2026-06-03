@@ -1,0 +1,4 @@
+# OpenFold3 Gradio Space dependencies.
+# NOTE: openfold3 needs a CUDA GPU; select a GPU Space hardware tier.
+gradio>=4.44
+openfold3[cuequivariance]

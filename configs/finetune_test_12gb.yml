@@ -1,0 +1,160 @@
+# =============================================================================
+# OpenFold3 SMOKE-TEST config  ·  12 GB GPU  ·  goal = "does the loop run?"
+# -----------------------------------------------------------------------------
+# 12 GB is BELOW OF3's documented minimum (inference 32 GB; training heavier).
+# This config is NOT for real science — it maxes every memory knob so a few
+# fine-tune steps can run end-to-end on a tiny dataset to validate the pipeline.
+#
+# Memory levers used (all from source):
+#   presets: [train]        -> blocks_per_ckpt:1 + ckpt_intermediate_steps:true
+#                              (activation checkpointing ON)   model_setting_presets.yml
+#   clear_cache_between_steps: true   (free CUDA cache each step)
+#   diffusion.no_samples: 1 (default 48; finetune_1 32) -> biggest single saving
+#   num_recycles: 1         (default 3)
+#   token_budget: 128       (tiny crop)
+#   precision: bf16-mixed
+#   batch_size: 1           (only value supported — runner.py)
+#   num_workers: 1          (avoids DataLoader crash, issue #149)
+#   OPTIONAL DeepSpeed ZeRO-2 + optimizer offload to CPU (see pl_trainer_args)
+#
+# If it still OOMs: see SMALL_TEST_12GB.md "OOM ladder" (lower token_budget to 96,
+# enable DeepSpeed offload, then fall back to CPU accelerator).
+#
+# Launch:  run_openfold train --runner-yaml finetune_test_12gb.yml --seed 42
+# =============================================================================
+
+experiment_settings:
+  mode: train
+  output_dir: ./test_finetune_output
+  seed: 42
+  restart_checkpoint_path: /root/.openfold3/of3-p2-155k.pt   # <<< EDIT (abs path) >>>
+  ckpt_load_settings:
+    manual_checkpoint_loading: true
+    init_from_ema_weights: false
+    restore_lr_scheduler: false
+    restore_time_step: false
+    strict_loading: false
+
+data_module_args:
+  batch_size: 1
+  num_workers: 1            # keep at 1 on a small/desktop box (issue #149)
+  epoch_len: 8             # ~8 steps per epoch -> a short, complete run
+
+logging_config:
+  log_lr: true
+  wandb_config: null        # keep the smoke test offline
+
+pl_trainer_args:
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+  precision: bf16-mixed
+  max_epochs: 1             # 1 epoch * epoch_len(8) = ~8 steps total
+  log_every_n_steps: 1
+  enable_model_summary: true
+  mpi_plugin: false
+  # --- If you OOM, uncomment to offload optimizer state to CPU RAM (ZeRO-2): ---
+  # deepspeed_config_path: /root/openfold-3/deepspeed_configs/ds_stage2_default_offload.json
+
+checkpoint_config:
+  every_n_epochs: 1
+  auto_insert_metric_name: false
+  save_last: true
+  save_top_k: -1
+
+model_update:
+  presets:
+    - train                 # turns ON activation checkpointing (memory saver)
+  custom:
+    settings:
+      model_selection_weight_scheme: fine_tuning
+      clear_cache_between_steps: true
+      optimizer:
+        learning_rate: 0.0003
+      lr_scheduler:
+        warmup_no_steps: 2   # tiny so LR is non-zero within an 8-step run
+      ema:
+        decay: 0.99
+      memory:
+        train:
+          msa_module:
+            swiglu_seq_chunk_size: 256   # chunk MSA SwiGLU to cut activation memory
+    architecture:
+      shared:
+        num_recycles: 1                  # default 3 -> 1
+        use_confidence_emb_prob: 0.8
+        diffusion:
+          no_samples: 1                  # default 48 -> 1  (largest memory saver)
+          use_conditioning_prob: 0.8
+      loss_module:
+        diffusion:
+          chunk_size: 1
+
+dataset_configs:
+  train:
+    weighted-pdb:
+      dataset_class: WeightedPDBDataset
+      weight: 1.0
+      config:
+        debug_mode: true
+        template:
+          n_templates: 0                 # templates OFF
+          take_top_k: false
+        crop:
+          token_crop:
+            enabled: true
+            token_budget: 128            # tiny crop (lower to 96 if you OOM)
+            crop_weights:
+              contiguous: 0.2
+              spatial: 0.4
+              spatial_interface: 0.4
+          chain_crop:
+            enabled: true
+        loss:
+          loss_weights:
+            bond: 4.0
+            smooth_lddt: 0.0
+
+  validation:
+    val-weighted-pdb:
+      dataset_class: ValidationPDBDataset
+      config:
+        debug_mode: true
+        msa:
+          subsample_main: false
+        template:
+          n_templates: 0
+          take_top_k: false
+        crop:
+          token_crop:
+            enabled: true
+            token_budget: 128            # crop validation too (default is full -> OOM risk)
+
+dataset_paths:
+  weighted-pdb:
+    alignments_directory: none
+    alignment_db_directory: none
+    alignment_array_directory:   /shared/openfold3/test/alignment_arrays                       # <<< EDIT >>>
+    dataset_cache_file:          /shared/openfold3/test/dataset_caches/training_cache.json     # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/test/preprocessed/structure_files           # <<< EDIT >>>
+    target_structure_file_format: npz
+    reference_molecule_directory: /shared/openfold3/test/preprocessed/reference_mols           # <<< EDIT >>>
+    template_cache_directory: none
+    template_structure_array_directory: none
+    template_structures_directory: none
+    template_file_format: npz
+    ccd_file: null
+
+  val-weighted-pdb:
+    alignments_directory: none
+    alignment_db_directory: none
+    alignment_array_directory:   /shared/openfold3/test/alignment_arrays                       # <<< EDIT >>>
+    dataset_cache_file:          /shared/openfold3/test/dataset_caches/validation_cache.json   # <<< EDIT >>>
+    target_structures_directory: /shared/openfold3/test/preprocessed/structure_files           # <<< EDIT >>>
+    target_structure_file_format: npz
+    reference_molecule_directory: /shared/openfold3/test/preprocessed/reference_mols           # <<< EDIT >>>
+    template_cache_directory: none
+    template_structure_array_directory: none
+    template_structures_directory: none
+    template_file_format: npz
+    ccd_file: null

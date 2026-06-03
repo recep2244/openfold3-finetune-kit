@@ -1,0 +1,14 @@
+# Tooling configuration only — this repository is a kit of scripts and configs,
+# not an installable Python package.
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]  # long lines are tolerated in generated/inline snippets
+
+[tool.ruff.format]
+quote-style = "double"
