@@ -55,7 +55,7 @@ flowchart LR
 
 ## Author & related
 
-Curated and maintained by **[Recep Adiyaman](https://recep2244.github.io/portfolio/)**.
+Curated and maintained by **[Dr Recep Adiyaman](https://recep2244.github.io/portfolio/)** — computational structural biologist (PhD, Reading; InstaDeep/BioNTech). Builder of CASP-benchmarked tools (IntFOLD, ReFOLD, FunFOLD, ModFOLDdock2Q); FunFOLD5 placed **2nd in protein–ligand pose ranking at CASP16**.
 
 - :material-web: [Portfolio](https://recep2244.github.io/portfolio/) — about me and other work
 - :fontawesome-brands-github: [GitHub profile](https://github.com/recep2244) · [all repositories](https://github.com/recep2244?tab=repositories)

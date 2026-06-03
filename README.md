@@ -148,14 +148,20 @@ Please also cite [OpenFold3](https://github.com/aqlaboratory/openfold-3).
 
 ## About
 
-I put this kit together because target-specific OpenFold3 fine-tuning involves a lot of
-fiddly, easy-to-get-wrong plumbing — data preprocessing, MSAs, checkpoint loading quirks,
-and evaluation — and I wanted a path that just works and is reproducible end-to-end. Every
-config key and flag here was checked against the OpenFold3 source, and the setup was verified
-on real hardware (down to a 12 GB laptop GPU for the smoke test). If it saves you an afternoon
-of debugging, it did its job. Issues and PRs are welcome.
+I'm **Dr Recep Adiyaman**, a computational structural biologist (PhD, University of Reading) with
+9+ years in protein structure prediction, molecular dynamics, and AI/ML-driven drug design. I
+develop CASP-benchmarked tools — IntFOLD, ReFOLD, FunFOLD, MultiFOLD, ModFOLDdock2Q — and at
+**CASP16 my FunFOLD5 method placed 2nd in protein–ligand pose ranking**, ahead of the AlphaFold3
+server. I currently work with **InstaDeep (BioNTech Group)** on co-folding and structural
+immunology, and I've contributed the `--min-pep-length` parameter to OpenStructure (the same
+scorer this kit uses). 14 peer-reviewed papers · h-index 9 · 530+ citations.
 
-— Recep Adiyaman ([@recep2244](https://github.com/recep2244) · [Google Scholar](https://scholar.google.com/citations?user=4UUzdMsAAAAJ&hl=en) · [portfolio](https://recep2244.github.io/portfolio/))
+I built this kit because target-specific OpenFold3 fine-tuning involves a lot of fiddly,
+easy-to-get-wrong plumbing — preprocessing, MSAs, checkpoint-loading quirks, evaluation — and I
+wanted a path that just works and is reproducible end-to-end, bringing that same interface-focused,
+quality-assessment mindset to OpenFold3. Issues and PRs are welcome.
+
+— Dr Recep Adiyaman ([@recep2244](https://github.com/recep2244) · [Google Scholar](https://scholar.google.com/citations?user=4UUzdMsAAAAJ&hl=en) · [portfolio](https://recep2244.github.io/portfolio/))
 
 > **Validation status (honest).** The install + a real **inference** smoke test are verified on a
 > 12 GB GPU. A full 80 GB fine-tune is **not** bundled, so the metrics table is a *schematic
