@@ -79,6 +79,18 @@ bash scripts/run_all.sh
 | `scripts/evaluate.sh` | Score baseline vs fine-tuned on the held-out set |
 | `scripts/run_small_test.sh` | Minimal end-to-end smoke test on tiny data |
 
+## Notebooks
+
+Prefer a notebook? The same workflow runs on any hosted GPU platform (Colab, Kaggle, Paperspace, SageMaker Studio Lab, Lightning AI). Each notebook mirrors a script.
+
+| Notebook | Does | Script equivalent | |
+|---|---|---|---|
+| [`01_setup_and_verify`](notebooks/01_setup_and_verify.ipynb) | Install + weights + smoke prediction | `verify_setup.sh` | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/recep2244/openfold3-finetune-kit/blob/main/notebooks/01_setup_and_verify.ipynb) |
+| [`02_finetune_pipeline`](notebooks/02_finetune_pipeline.ipynb) | Full pipeline: prepare → check → fine-tune → evaluate | `run_all.sh` | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/recep2244/openfold3-finetune-kit/blob/main/notebooks/02_finetune_pipeline.ipynb) |
+| [`03_inference`](notebooks/03_inference.ipynb) | Predict a structure and view it in 3D | `run_openfold predict` | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/recep2244/openfold3-finetune-kit/blob/main/notebooks/03_inference.ipynb) |
+
+A free T4 (16 GB) runs the smoke profile only; a real fine-tune needs an A100/H100. On Kaggle/Paperspace/others, import the notebook from its GitHub URL and enable a GPU. Details: [notebooks guide](https://recep2244.github.io/openfold3-finetune-kit/notebooks/) · [`notebooks/README.md`](notebooks/README.md).
+
 ## Results
 
 A successful target fine-tune improves interface metrics without regressing global accuracy:

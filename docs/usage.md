@@ -57,7 +57,8 @@ platforms (Colab, Kaggle, Paperspace, SageMaker Studio Lab, Lightning AI) withou
 | `02_finetune_pipeline.ipynb` | `run_all.sh` |
 | `03_inference.ipynb` | `run_openfold predict` |
 
-They use the pip install path; a free T4 runs the smoke profile only. See `notebooks/README.md`.
+They use the pip install path; a free T4 runs the smoke profile only. Full details and
+"Open in Colab" links are on the [Notebooks](notebooks.md) page.
 
 ## Step-by-step (instead of `run_all.sh`)
 
