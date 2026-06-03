@@ -237,3 +237,26 @@
   .of3-hero { padding: 2.2rem 1.5rem; }
   .md-typeset .of3-hero h1 { font-size: 2.1rem; }
 }
+
+/* =============================================================================
+   Accessibility (WCAG 2.2)
+   ============================================================================= */
+/* Visible keyboard focus on interactive elements */
+.md-typeset .md-button:focus-visible,
+.md-content a:focus-visible,
+.md-nav__link:focus-visible,
+.of3-hero a:focus-visible {
+  outline: 3px solid var(--of3-amber);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* Respect users who prefer reduced motion: disable hover/transform animation */
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .grid.cards > ul > li,
+  .md-typeset .md-button,
+  .md-typeset .grid.cards > ul > li:hover,
+  .md-typeset .md-button:hover {
+    transition: none !important;
+    transform: none !important;
+  }
+}
