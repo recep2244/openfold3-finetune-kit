@@ -52,6 +52,7 @@ nav:
   - How it works: pipeline.md
   - Configuration: configuration.md
   - Usage reference: usage.md
+  - Scoring & QC: scoring.md
   - Notebooks (cloud): notebooks.md
   - Hardware:
       - Small GPU (12 GB): small-gpu.md

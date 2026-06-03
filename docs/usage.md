@@ -13,6 +13,9 @@ at the top of `run_all.sh`). Run them from the repo root.
 | `check_data.sh` | Preflight data-integrity check (run automatically by `run_all.sh`) |
 | `evaluate.sh` | Score baseline vs fine-tuned on the held-out set |
 | `run_small_test.sh` | Minimal end-to-end smoke test on tiny data |
+| `qc_gate.py` | Composite QC gate + ranker for predictions ([Scoring & QC](scoring.md)) |
+| `ipsae_score.sh` | Reference-free interface confidence (ipSAE) |
+| `foldseek_search.sh` | Structural homolog / novelty search for a target |
 
 ## `run_all.sh` configuration
 

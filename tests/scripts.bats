@@ -43,3 +43,16 @@ setup() {
   run env WORK="$BATS_TEST_TMPDIR/empty_work" bash "$REPO/scripts/check_data.sh"
   [ "$status" -ne 0 ]
 }
+
+@test "qc_gate.py composite ranker passes its self-test" {
+  run python3 "$REPO/scripts/qc_gate.py" --self-test
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"self-test OK"* ]]
+}
+
+@test "ipsae_score.sh and foldseek_search.sh show usage without args" {
+  run bash "$REPO/scripts/ipsae_score.sh"
+  [ "$status" -ne 0 ]
+  run bash "$REPO/scripts/foldseek_search.sh"
+  [ "$status" -ne 0 ]
+}
