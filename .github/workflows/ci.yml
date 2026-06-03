@@ -48,6 +48,15 @@ jobs:
               print("ok", f)
           PY
 
+  scripts-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Bats
+        uses: bats-core/bats-action@3.0.0
+      - name: Run shell script tests
+        run: bats tests/
+
   docs:
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +64,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Build docs (strict)
+      - name: Build docs (strict, with social cards)
         run: |
-          pip install --quiet mkdocs-material
+          sudo apt-get update && sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev pngquant
+          pip install "mkdocs-material[imaging]"
           mkdocs build --strict

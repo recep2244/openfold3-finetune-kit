@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 SHELL := bash
 
-.PHONY: help verify lint fmt docs docs-build clean
+.PHONY: help verify lint fmt test docs docs-build clean
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -20,6 +20,9 @@ lint: ## shellcheck + yamllint + ruff + notebook validation
 fmt: ## Format Python with ruff
 	ruff format .
 	ruff check --fix .
+
+test: ## Run shell script tests (Bats)
+	bats tests/
 
 docs: ## Serve the documentation site locally
 	mkdocs serve
