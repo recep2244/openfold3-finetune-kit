@@ -1,14 +1,15 @@
 # Scoring, QC & homology
 
 Beyond the baseline-vs-fine-tuned comparison in [evaluation](pipeline.md#d-evaluation),
-the kit ships three research-backed tools for triaging predictions and curating targets.
+the kit ships three tools for triaging predictions and curating targets.
 
 ## ipSAE — reference-free interface confidence
 
-`evaluate.sh` needs an experimental structure. **ipSAE** (Dunbrack et al., 2025) instead
-scores an interface from the model's own PAE — no reference required — so you can rank
-fine-tuned predictions on targets you cannot yet validate. It outperforms ipTM for ranking
-(≈1.4× precision), especially across different-length constructs and disordered regions.
+`evaluate.sh` needs an experimental structure. **ipSAE** ([Dunbrack, 2025](https://doi.org/10.1101/2025.02.10.637595))
+instead scores an interface from the model's own PAE — no reference required — so you can rank
+fine-tuned predictions on targets you cannot yet validate. The paper reports it ranks
+interfaces more reliably than ipTM, particularly across different-length constructs and
+disordered regions; see the preprint for the precision figures.
 
 ```bash
 # OpenFold3 / AF3-style outputs: the *_full_data*.json (PAE) + the predicted .cif
@@ -22,12 +23,18 @@ bash scripts/ipsae_score.sh out/target/*full_data_0.json out/target/*_model.cif 
 | pDockQ | > 0.50 | > 0.60 |
 
 The helper fetches [DunbrackLab/IPSAE](https://github.com/DunbrackLab/IPSAE) into `~/.cache/IPSAE`
-on first run. Paper: *"What's wrong with AlphaFold's ipTM score"* (bioRxiv, 2025).
+on first run. Paper: Dunbrack, *"What's wrong with AlphaFold's ipTM score?"* ([bioRxiv 2025.02.10.637595](https://doi.org/10.1101/2025.02.10.637595)).
+
+!!! note "Threshold provenance"
+    The ipSAE/LIS/pDockQ cutoffs above (and the pLDDT/ipTM/PAE values in the gate below)
+    originate largely from **de novo binder-design** benchmarks. Use them here as
+    **pre-screening heuristics** for co-folding predictions, not as validated co-folding pose
+    thresholds — calibrate against your own held-out set where possible.
 
 ## QC gate & composite ranker
 
-Individual confidence metrics are weak predictors of experimental success (single-metric
-ROC AUC ≈ 0.65) — they are **pre-screening filters, not affinity predictors**. `qc_gate.py`
+Individual confidence metrics have only modest, dataset-dependent correlation with
+experimental success — they are **pre-screening filters, not affinity predictors**. `qc_gate.py`
 applies threshold filters and a renormalised **composite** score (which ranks better than any
 single metric), then writes a ranked CSV and a campaign-health summary.
 

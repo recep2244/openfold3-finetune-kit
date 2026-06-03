@@ -17,7 +17,7 @@ _Curated and maintained by [Recep Adiyaman](https://recep2244.github.io/portfoli
 
 ## Overview
 
-OpenFold3 is the Apache-2.0, all-atom co-folding model (the open reproduction of AlphaFold3). Like all co-folding models it **interpolates well but extrapolates poorly** — accuracy degrades on chemistry far from its training distribution. This kit closes that gap for a *specific* target: a short, gentle fine-tune on ~10 protein–ligand complexes corrects systematic pose errors at the binding interface, then proves the gain on a held-out set.
+OpenFold3 is the Apache-2.0, all-atom co-folding model (the open reproduction of AlphaFold3). Like all co-folding models it **interpolates well but extrapolates poorly** — accuracy degrades on chemistry far from its training distribution. This kit closes that gap for a *specific* target: a short, gentle fine-tune on ~10 protein–ligand complexes corrects systematic pose errors at the binding interface, then measures the gain on a held-out set (by default the same target with *novel ligands*, plus a forgetting check on unrelated targets).
 
 It reproduces the published low-N recipe (≈350 steps, ≈20 h on one 80 GB GPU) and wraps the entire workflow — data preparation, MSA retrieval, training, and baseline-vs-fine-tuned scoring — behind a single command, with a real end-to-end setup verifier.
 
@@ -96,9 +96,9 @@ Prefer a notebook? The same workflow runs on any hosted GPU platform (Colab, Kag
 
 A free T4 (16 GB) runs the smoke profile only; a real fine-tune needs an A100/H100. On Kaggle/Paperspace/others, import the notebook from its GitHub URL and enable a GPU. Details: [notebooks guide](https://recep2244.github.io/openfold3-finetune-kit/docs/notebooks/) · [`notebooks/README.md`](notebooks/README.md).
 
-## Results
+## Expected results (schematic — not measured)
 
-A successful target fine-tune improves **interface** metrics (the protein–ligand contact and pose) without regressing global accuracy. The table below is an **illustrative pattern of the expected direction** — not measured benchmarks; your actual deltas depend on the target, the training set, and held-out difficulty.
+A successful target fine-tune improves **interface** metrics (the protein–ligand contact and pose) without regressing global accuracy. The table below is an **illustrative pattern of the expected direction — not measured benchmarks** (no full run is bundled); your actual deltas depend on the target, the training set, and held-out difficulty.
 
 | Metric | Baseline | Fine-tuned | Δ | Direction |
 |---|---|---|---|---|
@@ -153,7 +153,12 @@ config key and flag here was checked against the OpenFold3 source, and the setup
 on real hardware (down to a 12 GB laptop GPU for the smoke test). If it saves you an afternoon
 of debugging, it did its job. Issues and PRs are welcome.
 
-— Recep Adiyaman ([@recep2244](https://github.com/recep2244))
+— Recep Adiyaman ([@recep2244](https://github.com/recep2244) · [Google Scholar](https://scholar.google.com/citations?user=4UUzdMsAAAAJ&hl=en) · [portfolio](https://recep2244.github.io/portfolio/))
+
+> **Validation status (honest).** The install + a real **inference** smoke test are verified on a
+> 12 GB GPU. A full 80 GB fine-tune is **not** bundled, so the metrics table is a *schematic
+> expected pattern, not a measured benchmark*. Reproduce real numbers with `bash scripts/run_all.sh`
+> (`GPU_PROFILE="big"`) on an A100/H100; the run writes `eval/out/results.csv`.
 
 ## Contributing & license
 

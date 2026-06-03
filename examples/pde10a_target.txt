@@ -2,6 +2,10 @@
 # 4-character PDB codes. Two lists: TRAIN (model learns from) and HELD-OUT
 # (never seen in training; used to measure improvement). Paste the values into
 # the TRAIN_IDS / VAL_IDS lines of scripts/run_all.sh.
+#
+# NOTE: this default split is the SAME target (PDE10A) with NOVEL LIGANDS — it
+# measures novel-ligand generalisation on one pocket, not transfer to a new target.
+# Always also run the forgetting check on unrelated targets (see docs/pipeline.md).
 
 TRAIN: 5SDY 5SIQ 5SI7 5SIG 5SI5 5SI8 5SIY 5SG5 5SGL 5SIH
 HELD_OUT: 5SH0 5SE0 5SHR 5SJL 5SH8 5SF4 5SFG 5SE5 5SHK 5SEE

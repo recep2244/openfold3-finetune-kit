@@ -4,10 +4,11 @@
 Reads a CSV of per-prediction confidence metrics, applies research-backed
 threshold filters, computes a composite score, and writes a ranked CSV.
 
-Why composite: individual confidence metrics are weak predictors of experimental
-success (single-metric ROC AUC ~0.65) — they work as *pre-screening filters*, not
-as affinity predictors. A weighted composite ranks better than any single metric.
-Thresholds follow the protein-qc guidance; ipSAE follows Dunbrack et al. (2025).
+Why composite: individual confidence metrics have only modest, dataset-dependent
+correlation with experimental success — they work as *pre-screening filters*, not as
+affinity predictors. A weighted composite tends to rank better than any single metric.
+Thresholds are pre-screening heuristics (several borrowed from binder-design QC); ipSAE
+follows Dunbrack (2025), bioRxiv 2025.02.10.637595.
 
 Recognised columns (any subset, case-insensitive): id, plddt, ptm, iptm,
 pae_interaction, ipsae, esm2_pll. pLDDT on a 0-100 scale is auto-normalised to 0-1.

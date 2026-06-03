@@ -71,8 +71,8 @@ held-out set; this is how you judge the fine-tune:
 | ligand RMSD | Å | < 2 Å is a correct pose | lower |
 
 !!! warning "Scores are filters, not affinity predictors"
-    Individual confidence metrics have only modest correlation with experimental success
-    (single-metric ROC AUC ≈ 0.65). Treat them as **pre-screening filters** that eliminate
+    Individual confidence metrics have only modest, dataset-dependent correlation with
+    experimental success. Treat them as **pre-screening filters** that eliminate
     poor predictions, not as a ranking of binding affinity. Judge a fine-tune on the *shift*
     in interface metrics across the held-out set — and always confirm global lDDT did not drop.
 

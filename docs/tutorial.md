@@ -48,9 +48,12 @@ each stage does. It is largely unattended; the fine-tune is the long part.
 
 ## 4. Read the result
 
-The run prints a comparison table:
+The run prints a comparison table. **The values below are illustrative (a schematic of the
+expected direction), not measured output** — your real numbers come from your run's
+`results.csv`:
 
 ```text
+# ILLUSTRATIVE — expected pattern, not a measured run
 metric        baseline  finetuned   delta
 lddt            0.71       0.74     +0.03
 dockq_ave       0.41       0.58     +0.17
