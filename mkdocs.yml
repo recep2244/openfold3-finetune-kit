@@ -50,6 +50,23 @@ nav:
       - Cloud (80 GB): cloud.md
   - Troubleshooting: troubleshooting.md
   - Background & rationale: background.md
+  - Portfolio ↗: https://github.com/recep2244
+  - OpenFold3 ↗: https://github.com/aqlaboratory/openfold-3
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/recep2244
+      name: Recep Adiyaman on GitHub
+    - icon: material/folder-multiple
+      link: https://github.com/recep2244?tab=repositories
+      name: More projects
+    - icon: fontawesome/solid/dna
+      link: https://github.com/aqlaboratory/openfold-3
+      name: OpenFold3 (upstream)
+    - icon: material/email
+      link: mailto:recepadiyaman2244@gmail.com
+      name: Email
 
 markdown_extensions:
   - admonition

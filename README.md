@@ -155,6 +155,8 @@ Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and run `ma
 
 ## Maintainer & acknowledgements
 
-Curated and maintained by **[Recep Adiyaman](https://github.com/recep2244)**.
+Curated and maintained by **[Recep Adiyaman](https://github.com/recep2244)** — [more projects](https://github.com/recep2244?tab=repositories).
 
 Built on [OpenFold3](https://github.com/aqlaboratory/openfold-3) by the OpenFold Consortium / AlQuraishi Lab. Fine-tuned weights derive from the public `openfold3-p2-155k` checkpoint; retain that attribution when redistributing.
+
+**Links:** [GitHub profile](https://github.com/recep2244) · [All repositories](https://github.com/recep2244?tab=repositories) · [OpenFold3 (upstream)](https://github.com/aqlaboratory/openfold-3) · [Documentation](https://recep2244.github.io/openfold3-finetune-kit/)

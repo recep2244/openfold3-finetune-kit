@@ -38,3 +38,11 @@ flowchart LR
     reproducible end to end. Every config key here was checked against the OpenFold3 source and
     verified on real hardware. If it saves you an afternoon of debugging, it did its job.
     — *Recep Adiyaman*
+
+## Author & related
+
+Curated and maintained by **[Recep Adiyaman](https://github.com/recep2244)**.
+
+- :fontawesome-brands-github: [GitHub profile](https://github.com/recep2244) · [all repositories](https://github.com/recep2244?tab=repositories)
+- :fontawesome-solid-dna: [OpenFold3 (upstream)](https://github.com/aqlaboratory/openfold-3) — the model this kit fine-tunes
+- :material-source-repository: [Project repository](https://github.com/recep2244/openfold3-finetune-kit)
