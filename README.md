@@ -109,6 +109,8 @@ A successful target fine-tune improves **interface** metrics (the protein–liga
 
 The scientific rationale: co-folding accuracy degrades with distance from the training distribution, and the largest, most correctable errors concentrate at the binding **interface** — so a gentle, interface-weighted fine-tune lifts DockQ / lDDT-PLI and lowers ligand RMSD while global lDDT holds. Your real per-structure scores are written to `<work>/eval/out/results.csv`; always confirm global lDDT did not drop (regression check) and run the [forgetting check](https://recep2244.github.io/openfold3-finetune-kit/docs/pipeline/#forgetting-check).
 
+To publish a **measured** result, run the full recipe on an 80 GB GPU and drop the outputs into [`examples/reference_run/`](examples/reference_run/) (scaffold + metadata template provided), then replace the schematic table above.
+
 ## Documentation
 
 Landing page: **https://recep2244.github.io/openfold3-finetune-kit/** · Full docs: **https://recep2244.github.io/openfold3-finetune-kit/docs/**

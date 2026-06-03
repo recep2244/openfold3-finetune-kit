@@ -44,3 +44,19 @@ ckpt_load_settings:
 to point at the artifacts produced under your `WORK` directory, so the configs are portable
 as-is. The full key-by-key rationale, with upstream source references, is in
 [Background & rationale](background.md).
+
+## Experiment tracking (Weights & Biases)
+
+The single- and multi-GPU configs include a `wandb_config` block under `logging_config`:
+
+```yaml
+logging_config:
+  log_lr: true
+  wandb_config:
+    project: openfold3-finetune
+    entity: your-wandb-entity      # <<< set to your W&B entity
+    experiment_name: pde10a-lowN
+```
+
+- **Enable:** `wandb login` once, then set `entity`. Loss, learning rate, and EMA are logged per step — useful for the loss/EMA curve in a [reference run](https://recep2244.github.io/openfold3-finetune-kit/) write-up.
+- **Disable:** set the whole `wandb_config:` to `null` for fully offline training.

@@ -1,0 +1,5 @@
+query_id,model,lddt,dockq_ave,ics,ips,lddt_pli,ligand_rmsd,best_sample,ranking_score
+# This is a TEMPLATE showing the exact columns evaluate.sh writes. Replace with your
+# real eval/out/results.csv after a full run (delete this comment line — CSV has no comments).
+EXAMPLE_5sh0,baseline,,,,,,,,
+EXAMPLE_5sh0,finetuned,,,,,,,,
