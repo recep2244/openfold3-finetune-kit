@@ -11,7 +11,7 @@
 #   [C] fine-tune on the TRAIN structures
 #   [D] evaluate baseline vs fine-tuned on the HELD-OUT structures
 #
-# Docs: https://recep2244.github.io/openfold3-finetune-kit/
+# Docs: https://recep2244.github.io/openfold3-finetune-kit/docs/
 # =============================================================================
 set -euo pipefail
 
@@ -39,7 +39,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"     # the scripts/ folder (sibling .sh liv
 REPO_ROOT="$(cd "$HERE/.." && pwd)"       # repo root; configs live in $REPO_ROOT/configs
 CONFIGS="$REPO_ROOT/configs"
 say() { echo; echo "============================================================"; echo ">>> $*"; echo "============================================================"; }
-die() { echo; echo "!!! STOPPED: $*"; echo "    Troubleshooting: https://recep2244.github.io/openfold3-finetune-kit/troubleshooting/"; exit 1; }
+die() { echo; echo "!!! STOPPED: $*"; echo "    Troubleshooting: https://recep2244.github.io/openfold3-finetune-kit/docs/troubleshooting/"; exit 1; }
 
 # ---------- [A] readiness check ----------
 say "[A] Checking your computer is ready"

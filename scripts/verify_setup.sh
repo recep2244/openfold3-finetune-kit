@@ -194,7 +194,7 @@ echo "============================================================"
 echo " SUMMARY:  $PASS passed, $WARN warnings, $FAIL failed"
 echo "============================================================"
 if [[ "$FAIL" -gt 0 ]]; then
-  echo "Setup is NOT ready. Fix the [FAIL] items above (see docs: https://recep2244.github.io/openfold3-finetune-kit/troubleshooting/)."
+  echo "Setup is NOT ready. Fix the [FAIL] items above (see docs: https://recep2244.github.io/openfold3-finetune-kit/docs/troubleshooting/)."
   exit 1
 elif [[ "$WARN" -gt 0 ]]; then
   echo "Setup works, with caveats above (e.g. small GPU = smoke test only, or no Docker)."

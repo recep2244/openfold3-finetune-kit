@@ -156,7 +156,7 @@ with gr.Blocks(
     )
     gr.Markdown(
         "Part of [openfold3-finetune-kit](https://github.com/recep2244/openfold3-finetune-kit) "
-        "· [Documentation](https://recep2244.github.io/openfold3-finetune-kit/) "
+        "· [Documentation](https://recep2244.github.io/openfold3-finetune-kit/docs/) "
         "· Curated by [Recep Adiyaman](https://recep2244.github.io/portfolio/)"
     )
 

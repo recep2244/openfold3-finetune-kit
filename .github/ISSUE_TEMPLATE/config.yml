@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://recep2244.github.io/openfold3-finetune-kit/
+    url: https://recep2244.github.io/openfold3-finetune-kit/docs/
     about: Setup, tutorial, configuration, and troubleshooting.
   - name: OpenFold3 (upstream)
     url: https://github.com/aqlaboratory/openfold-3

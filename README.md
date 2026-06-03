@@ -8,7 +8,7 @@ _Curated and maintained by [Recep Adiyaman](https://recep2244.github.io/portfoli
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![CI](https://github.com/recep2244/openfold3-finetune-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/recep2244/openfold3-finetune-kit/actions/workflows/ci.yml)
-[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue)](https://recep2244.github.io/openfold3-finetune-kit/)
+[![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue)](https://recep2244.github.io/openfold3-finetune-kit/docs/)
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/recep2244/openfold3-finetune-kit/blob/main/notebooks/02_finetune_pipeline.ipynb)
 [![Python](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/)
 [![CUDA](https://img.shields.io/badge/CUDA-12.x-76b900.svg)](https://developer.nvidia.com/cuda-toolkit)
@@ -47,7 +47,7 @@ flowchart LR
 | ≥ 24 GB | Reduced fine-tune (smaller token budget) | `configs/finetune_lowN_single_gpu.yml` |
 | 12–16 GB | Smoke test only (validates the pipeline) | `configs/finetune_test_12gb.yml` |
 
-CUDA ≥ 12.1, Linux. Inference is far lighter than training and runs on 12 GB. See the [Cloud GPU guide](https://recep2244.github.io/openfold3-finetune-kit/cloud/) for renting an 80 GB instance.
+CUDA ≥ 12.1, Linux. Inference is far lighter than training and runs on 12 GB. See the [Cloud GPU guide](https://recep2244.github.io/openfold3-finetune-kit/docs/cloud/) for renting an 80 GB instance.
 
 ## Installation
 
@@ -60,7 +60,7 @@ git clone https://github.com/recep2244/openfold3-finetune-kit.git
 cd openfold3-finetune-kit && make verify
 ```
 
-> The pixi environment ships a matched CUDA toolkit and cutlass. **Do not export a system `CUDA_HOME` over it** — that breaks the evoformer kernel build. See [Troubleshooting](https://recep2244.github.io/openfold3-finetune-kit/troubleshooting/).
+> The pixi environment ships a matched CUDA toolkit and cutlass. **Do not export a system `CUDA_HOME` over it** — that breaks the evoformer kernel build. See [Troubleshooting](https://recep2244.github.io/openfold3-finetune-kit/docs/troubleshooting/).
 
 ## Usage
 
@@ -89,7 +89,7 @@ Prefer a notebook? The same workflow runs on any hosted GPU platform (Colab, Kag
 | [`02_finetune_pipeline`](notebooks/02_finetune_pipeline.ipynb) | Full pipeline: prepare → check → fine-tune → evaluate | `run_all.sh` | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/recep2244/openfold3-finetune-kit/blob/main/notebooks/02_finetune_pipeline.ipynb) |
 | [`03_inference`](notebooks/03_inference.ipynb) | Predict a structure and view it in 3D | `run_openfold predict` | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/recep2244/openfold3-finetune-kit/blob/main/notebooks/03_inference.ipynb) |
 
-A free T4 (16 GB) runs the smoke profile only; a real fine-tune needs an A100/H100. On Kaggle/Paperspace/others, import the notebook from its GitHub URL and enable a GPU. Details: [notebooks guide](https://recep2244.github.io/openfold3-finetune-kit/notebooks/) · [`notebooks/README.md`](notebooks/README.md).
+A free T4 (16 GB) runs the smoke profile only; a real fine-tune needs an A100/H100. On Kaggle/Paperspace/others, import the notebook from its GitHub URL and enable a GPU. Details: [notebooks guide](https://recep2244.github.io/openfold3-finetune-kit/docs/notebooks/) · [`notebooks/README.md`](notebooks/README.md).
 
 ## Results
 
@@ -102,16 +102,16 @@ A successful target fine-tune improves **interface** metrics (the protein–liga
 | lDDT-PLI | 0.55 | 0.72 | +0.17 | higher is better |
 | Ligand RMSD (Å) | 3.20 | 1.10 | −2.10 | lower is better |
 
-The scientific rationale: co-folding accuracy degrades with distance from the training distribution, and the largest, most correctable errors concentrate at the binding **interface** — so a gentle, interface-weighted fine-tune lifts DockQ / lDDT-PLI and lowers ligand RMSD while global lDDT holds. Your real per-structure scores are written to `<work>/eval/out/results.csv`; always confirm global lDDT did not drop (regression check) and run the [forgetting check](https://recep2244.github.io/openfold3-finetune-kit/pipeline/#forgetting-check).
+The scientific rationale: co-folding accuracy degrades with distance from the training distribution, and the largest, most correctable errors concentrate at the binding **interface** — so a gentle, interface-weighted fine-tune lifts DockQ / lDDT-PLI and lowers ligand RMSD while global lDDT holds. Your real per-structure scores are written to `<work>/eval/out/results.csv`; always confirm global lDDT did not drop (regression check) and run the [forgetting check](https://recep2244.github.io/openfold3-finetune-kit/docs/pipeline/#forgetting-check).
 
 ## Documentation
 
 Full documentation: **https://recep2244.github.io/openfold3-finetune-kit/**
-— [Getting started](https://recep2244.github.io/openfold3-finetune-kit/getting-started/) ·
-[Tutorial](https://recep2244.github.io/openfold3-finetune-kit/tutorial/) ·
-[How it works](https://recep2244.github.io/openfold3-finetune-kit/pipeline/) ·
-[Configuration](https://recep2244.github.io/openfold3-finetune-kit/configuration/) ·
-[Troubleshooting](https://recep2244.github.io/openfold3-finetune-kit/troubleshooting/)
+— [Getting started](https://recep2244.github.io/openfold3-finetune-kit/docs/getting-started/) ·
+[Tutorial](https://recep2244.github.io/openfold3-finetune-kit/docs/tutorial/) ·
+[How it works](https://recep2244.github.io/openfold3-finetune-kit/docs/pipeline/) ·
+[Configuration](https://recep2244.github.io/openfold3-finetune-kit/docs/configuration/) ·
+[Troubleshooting](https://recep2244.github.io/openfold3-finetune-kit/docs/troubleshooting/)
 
 ## Project layout
 
@@ -159,4 +159,4 @@ Curated and maintained by **[Recep Adiyaman](https://recep2244.github.io/portfol
 
 Built on [OpenFold3](https://github.com/aqlaboratory/openfold-3) by the OpenFold Consortium / AlQuraishi Lab. Fine-tuned weights derive from the public `openfold3-p2-155k` checkpoint; retain that attribution when redistributing.
 
-**Links:** [Portfolio](https://recep2244.github.io/portfolio/) · [GitHub profile](https://github.com/recep2244) · [All repositories](https://github.com/recep2244?tab=repositories) · [OpenFold3 (upstream)](https://github.com/aqlaboratory/openfold-3) · [Documentation](https://recep2244.github.io/openfold3-finetune-kit/)
+**Links:** [Portfolio](https://recep2244.github.io/portfolio/) · [GitHub profile](https://github.com/recep2244) · [All repositories](https://github.com/recep2244?tab=repositories) · [OpenFold3 (upstream)](https://github.com/aqlaboratory/openfold-3) · [Documentation](https://recep2244.github.io/openfold3-finetune-kit/docs/)

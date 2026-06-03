@@ -114,6 +114,6 @@ if [[ "$FAIL" -eq 0 ]]; then
   echo "All good — safe to start fine-tuning."
   exit 0
 else
-  echo "Fix the [FAIL] items above before training (docs: https://recep2244.github.io/openfold3-finetune-kit/troubleshooting/)."
+  echo "Fix the [FAIL] items above before training (docs: https://recep2244.github.io/openfold3-finetune-kit/docs/troubleshooting/)."
   exit 1
 fi

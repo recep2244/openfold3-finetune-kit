@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - "docs/**"
+      - "landing/**"
       - "mkdocs.yml"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
@@ -32,9 +33,14 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libcairo2-dev libfreetype6-dev libffi-dev libjpeg-dev libpng-dev libz-dev pngquant
       - run: pip install "mkdocs-material[imaging]"
       - run: mkdocs build --strict
+      - name: Assemble site (landing page at root, docs under /docs)
+        run: |
+          rm -rf public && mkdir -p public/docs
+          cp landing/index.html landing/styles.css landing/main.js public/
+          cp -r site/. public/docs/
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: site
+          path: public
 
   deploy:
     needs: build

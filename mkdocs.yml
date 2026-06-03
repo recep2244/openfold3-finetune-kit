@@ -1,7 +1,7 @@
 site_name: openfold3-finetune-kit
 site_description: Target-specific fine-tuning for OpenFold3 — data prep, training, and evaluation.
 site_author: Recep Adiyaman
-site_url: https://recep2244.github.io/openfold3-finetune-kit/
+site_url: https://recep2244.github.io/openfold3-finetune-kit/docs/
 repo_url: https://github.com/recep2244/openfold3-finetune-kit
 repo_name: recep2244/openfold3-finetune-kit
 edit_uri: edit/main/docs/
