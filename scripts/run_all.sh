@@ -95,8 +95,15 @@ y = y.replace("/shared/openfold3/finetune/dataset_caches/training_cache.json", t
 y = y.replace("/shared/openfold3/test/dataset_caches/training_cache.json", tc)
 y = y.replace("/shared/openfold3/finetune/dataset_caches/validation_cache.json", vc)
 y = y.replace("/shared/openfold3/test/dataset_caches/validation_cache.json", vc)
+# NOTE: single-/multi-GPU configs use a "standard/" path segment; the 12 GB test
+# config does not. Replace the more-specific "standard/" paths first, then the
+# plain ones, so every GPU profile renders a valid runner YAML.
+y = y.replace("/shared/openfold3/finetune/preprocessed/standard/structure_files", struct)
+y = y.replace("/shared/openfold3/test/preprocessed/standard/structure_files", struct)
 y = y.replace("/shared/openfold3/finetune/preprocessed/structure_files", struct)
 y = y.replace("/shared/openfold3/test/preprocessed/structure_files", struct)
+y = y.replace("/shared/openfold3/finetune/preprocessed/standard/reference_mols", refm)
+y = y.replace("/shared/openfold3/test/preprocessed/standard/reference_mols", refm)
 y = y.replace("/shared/openfold3/finetune/preprocessed/reference_mols", refm)
 y = y.replace("/shared/openfold3/test/preprocessed/reference_mols", refm)
 open(out,"w").write(y)
