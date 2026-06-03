@@ -32,11 +32,14 @@ WORK="${WORK:-/shared/openfold3/finetune}"
 # How many CPU workers for preprocessing / MSA preparsing:
 NWORKERS="${NWORKERS:-16}"
 
-# TRAIN set (gets gradient updates). Default: the Apheris PDE10A 10-complex set.
-TRAIN_IDS=(5SDY 5SIQ 5SI7 5SIG 5SI5 5SI8 5SIY 5SG5 5SGL 5SIH)
+# TRAIN set (gets gradient updates). Honors a TRAIN_IDS env var (e.g. exported by
+# run_all.sh) as a space-separated string; otherwise uses the Apheris PDE10A 10-complex set.
+if [[ -n "${TRAIN_IDS:-}" ]]; then read -ra TRAIN_IDS <<< "$TRAIN_IDS"
+else TRAIN_IDS=(5SDY 5SIQ 5SI7 5SIG 5SI5 5SI8 5SIY 5SG5 5SGL 5SIH); fi
 
-# VALIDATION / held-out set (NO gradient updates). Default: PDE10A 17-complex set.
-VAL_IDS=(5SH0 5SE0 5SHR 5SJL 5SH8 5SF4 5SFG 5SE5 5SHK 5SEE 5SFL 5SJU 5SKE 5SKU 5SKO 5SEA 5SKR)
+# VALIDATION / held-out set (NO gradient updates). Honors a VAL_IDS env var; else PDE10A set.
+if [[ -n "${VAL_IDS:-}" ]]; then read -ra VAL_IDS <<< "$VAL_IDS"
+else VAL_IDS=(5SH0 5SE0 5SHR 5SJL 5SH8 5SF4 5SFG 5SE5 5SHK 5SEE 5SFL 5SJU 5SKE 5SKU 5SKO 5SEA 5SKR); fi
 
 # MSA generation. Choose ONE:
 #   "colabfold" -> NO databases needed; uses the ColabFold web server (recommended
@@ -141,7 +144,7 @@ src, dst = sys.argv[1], sys.argv[2]
 # ColabFold per-chain outputs -> training-expected filenames (dataset_config_components.py)
 MAP = {
     "uniref.a3m": "uniref90_hits.a3m",
-    "bfd.mgnify30.metaeuk30.smag30.a3m": "bfd_uniref_hits.a3m",
+    "bfd.mgnify30.metaeuk30.smag30.a3m": "bfd_hits.a3m",
     "pair.a3m": "uniprot_hits.a3m",   # paired source; trainer pairs from uniprot_hits
 }
 os.makedirs(dst, exist_ok=True)
@@ -198,7 +201,7 @@ fi
 echo "    Building the MSA representatives FASTA"
 # db stems to read the query sequence from (must match the per-chain filenames present)
 if [[ "$MSA_MODE" == "colabfold" ]]; then
-  REP_DBS="uniref90_hits,uniprot_hits,bfd_uniref_hits"
+  REP_DBS="uniref90_hits,uniprot_hits,bfd_hits"
 else
   REP_DBS="uniref90,uniprot,mgnify,bfd"
 fi
@@ -212,7 +215,7 @@ echo "    Pre-parsing MSAs into npz (REQUIRED by the trainer)"
 python "$SCRIPTS/data_preprocessing/preparse_alignments_of3.py" \
   --alignments_directory "$MSA_RAW" \
   --alignment_array_directory "$ALN_ARR" \
-  --max_seq_counts '{"uniref90_hits":10000,"uniprot_hits":50000,"mgnify_hits":5000,"bfd_uniref_hits":5000}' \
+  --max_seq_counts '{"uniref90_hits":10000,"uniprot_hits":50000,"mgnify_hits":5000,"bfd_hits":5000}' \
   --num_workers "$NWORKERS"
 
 echo "==> [5/6] Training dataset cache (the FINAL trainer input)"

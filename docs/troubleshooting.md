@@ -55,6 +55,24 @@ A known issue, already worked around (single worker). If it persists, the machin
 ## Query name error
 Do not put dots (`.`) in structure or query names — a known OpenFold3 limitation.
 
+## Data prep fails: `No module named 'Bio'` or `mmseqs: not found` (exit 127)
+The data-prep / dataset-cache scripts in `openfold-3` need two tools that the
+`openfold3-cuda12` environment does not always include:
+
+```bash
+# inside the env (pixi shell -e openfold3-cuda12, or via `pixi run`)
+pip install biopython                                  # MSA representatives step
+conda install -c conda-forge -c bioconda mmseqs2       # or: download the mmseqs static binary onto PATH
+```
+
+`biopython` is needed by `generate_representatives_from_msa_directory.py`; **MMseqs2** is needed
+for sequence clustering in the training-dataset cache. Install both before running `run_all.sh`.
+
+## "Invalid max_seq_counts … bfd_uniref_hits Extra inputs are not permitted"
+A version-drift symptom: older OpenFold3 used `bfd_uniref_hits`; current `main` renamed the
+HHblits key to `bfd_hits`. This kit targets current `main` (`bfd_hits`); if you pin an older
+OpenFold3, revert the `bfd_hits` name in `scripts/prepare_data.sh`.
+
 ## Evaluation scoring errors
 Usually a Docker/OpenStructure issue. Training and prediction still succeeded; you can score
 later once the image is available.
