@@ -1,8 +1,22 @@
+<div class="of3-hero" markdown="1">
+
 # openfold3-finetune-kit
 
-**Target-specific fine-tuning for [OpenFold3](https://github.com/aqlaboratory/openfold-3) — data preparation, training, and rigorous evaluation in one reproducible pipeline.**
+<p class="of3-hero__tagline">Target-specific fine-tuning for OpenFold3 — data preparation, training, and rigorous evaluation in one reproducible pipeline.</p>
+<p class="of3-hero__by">Curated by <a href="https://recep2244.github.io/portfolio/">Recep Adiyaman</a></p>
 
-*Curated and maintained by [Recep Adiyaman](https://recep2244.github.io/portfolio/).*
+<div class="of3-hero__cta" markdown="1">
+[Get started](getting-started.md){ .md-button .md-button--primary } [View on GitHub](https://github.com/recep2244/openfold3-finetune-kit){ .md-button }
+</div>
+
+<ul class="of3-hero__chips">
+<li>Apache-2.0</li>
+<li>ColabFold MSAs · no databases</li>
+<li>12 GB → 80 GB GPUs</li>
+<li>Verified end-to-end</li>
+</ul>
+
+</div>
 
 OpenFold3 is the Apache-2.0, all-atom co-folding model (an open reproduction of AlphaFold3). Like all co-folding models it interpolates well but extrapolates poorly: accuracy drops on chemistry far from its training distribution. This kit closes that gap for a *specific* target — a short, gentle fine-tune on ~10 protein–ligand complexes corrects systematic interface errors, then proves the gain on a held-out set.
 

@@ -150,3 +150,90 @@
   background-image: radial-gradient(rgba(94, 234, 212, 0.05) 1px, transparent 1px);
 }
 .md-content { background: var(--md-default-bg-color); border-radius: 12px; }
+
+/* =============================================================================
+   Home hero banner
+   ============================================================================= */
+.of3-hero {
+  position: relative;
+  margin: 0 0 2.5rem;
+  padding: 3rem 2.4rem 2.6rem;
+  border-radius: 18px;
+  overflow: hidden;
+  color: #eafaf7;
+  background:
+    radial-gradient(120% 140% at 12% 0%, #15514b 0%, transparent 55%),
+    radial-gradient(120% 160% at 100% 10%, #0b6b62 0%, transparent 50%),
+    linear-gradient(135deg, #0a201e 0%, #0c2b29 55%, #0e3a35 100%);
+  box-shadow: 0 24px 60px -28px rgba(8, 32, 30, 0.85);
+}
+/* faint molecular dot lattice */
+.of3-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(94, 234, 212, 0.18) 1px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(105deg, #000 0%, transparent 72%);
+  mask-image: linear-gradient(105deg, #000 0%, transparent 72%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.of3-hero > * { position: relative; z-index: 1; }
+
+.md-typeset .of3-hero h1 {
+  font-family: var(--of3-display);
+  font-weight: 700;
+  font-size: 2.9rem;
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+  color: #f4fffd;
+  background: none;            /* override the site-wide gradient h1 */
+  -webkit-text-fill-color: currentColor;
+  letter-spacing: -0.02em;
+}
+.of3-hero__tagline {
+  font-size: 1.12rem;
+  max-width: 46rem;
+  margin: 0 0 0.4rem;
+  color: #bfe9e2;
+}
+.of3-hero__by { font-size: 0.8rem; color: #8fc7bf; margin: 0 0 1.4rem; }
+.of3-hero__by a { color: #5eead4; }
+
+.md-typeset .of3-hero__cta { margin: 0 0 1.6rem; }
+.md-typeset .of3-hero__cta p { margin: 0; }
+.md-typeset .of3-hero__cta .md-button {
+  margin: 0 0.5rem 0.4rem 0;
+  border-color: rgba(94, 234, 212, 0.5);
+  color: #eafaf7;
+}
+.md-typeset .of3-hero__cta .md-button--primary {
+  background: var(--of3-amber);
+  border-color: var(--of3-amber);
+  color: #1a0f04;
+}
+
+.of3-hero__chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.of3-hero__chips li {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  color: #d7f5ef;
+  background: rgba(94, 234, 212, 0.10);
+  border: 1px solid rgba(94, 234, 212, 0.28);
+  backdrop-filter: blur(2px);
+}
+@media (max-width: 44em) {
+  .of3-hero { padding: 2.2rem 1.5rem; }
+  .md-typeset .of3-hero h1 { font-size: 2.1rem; }
+}
