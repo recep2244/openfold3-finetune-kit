@@ -61,7 +61,7 @@ fi
 # off in every config and every predict call below.
 say "[B] Preparing data (structures + ColabFold MSAs only, no databases needed)"
 OF3_REPO="$OF3_REPO" WORK="$WORK" MSA_MODE="colabfold" \
-  TRAIN_IDS=($TRAIN_IDS) VAL_IDS=($VAL_IDS) \
+  TRAIN_IDS="$TRAIN_IDS" VAL_IDS="$VAL_IDS" \
   bash "$HERE/prepare_data.sh" || die "Data preparation failed (see messages above)."
 
 # Resolve the paths prepare_data.sh produced:

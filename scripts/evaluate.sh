@@ -89,8 +89,8 @@ score_ost () {  # $1=model_cif  $2=ref_cif
   local rdir; rdir="$(cd "$(dirname "$ref")" && pwd)"
   local mname; mname="$(basename "$model")"
   local rname; rname="$(basename "$ref")"
-  local sj="$OUT/scores/$(basename "$model" | tr '/.' '__')_cs.json"
-  local lj="$OUT/scores/$(basename "$model" | tr '/.' '__')_lig.json"
+  local sj; sj="$OUT/scores/$(basename "$model" | tr '/.' '__')_cs.json"
+  local lj; lj="$OUT/scores/$(basename "$model" | tr '/.' '__')_lig.json"
 
   # protein / interface metrics
   docker run --rm -v "$mdir:/m" -v "$rdir:/r" -v "$OUT/scores:/s" "$OST_IMAGE" \
