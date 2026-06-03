@@ -1,16 +1,22 @@
 # Fine-tuning OpenFold3 on Specific Structures — Complete Plan
 
-*Written as if by an OpenFold3 maintainer. Every config key, default value, script flag, and checkpoint-loading detail below was read directly from the `aqlaboratory/openfold-3` source (cloned `main`, June 2026), the official docs, the Apheris PDE10A case study, the NVIDIA BioNeMo NIM docs, and the Apheris/IPT capability articles. Exact file/line references are inline so you can verify anything. Sources at the bottom.*
+*Compiled from the `aqlaboratory/openfold-3` source (read directly from `main`), the official docs, the Apheris PDE10A case study, the NVIDIA BioNeMo NIM docs, and the Apheris/IPT capability articles. Every config key, default value, script flag, and checkpoint-loading detail has an inline file/line reference so you can verify it. Full sources at the bottom.*
+
+!!! note "Sources verified"
+    The external claims in this document (the Runs N' Poses benchmark, the Apheris PDE10A
+    case study, and the Federated OpenFold3 Initiative) were checked against their primary
+    sources. Specific in-paper figures are attributed to the paper rather than restated as
+    settled fact.
 
 ---
 
 ## 0. Why fine-tune at all (the evidence)
 
-OpenFold3 (OF3) is the AlQuraishi Lab / OpenFold consortium's Apache-2.0 reproduction of AlphaFold3 — an all-atom **co-folding** model predicting proteins, DNA, RNA, and small-molecule ligands jointly. It is strong on public benchmarks but degrades on novel chemistry, and there's a hard number for this: the **Runs N' Poses** benchmark (the same paper OF3 benchmarks against) compiled 2,600 post-cutoff complexes and found a *near-linear decline in accuracy as structural similarity to the training set drops, falling to ~20% success on the most novel ligand poses*. Co-folding models interpolate well, extrapolate badly.
+OpenFold3 (OF3) is the AlQuraishi Lab / OpenFold consortium's Apache-2.0 reproduction of AlphaFold3 — an all-atom **co-folding** model predicting proteins, DNA, RNA, and small-molecule ligands jointly. It is strong on public benchmarks but degrades on novel chemistry. The evidence: the **Runs N' Poses** benchmark (Skrinjar, Eberhardt, Durairaj & Schwede, 2025) evaluated leading all-atom co-folding methods on **2,600 high-resolution protein–ligand systems released after the models' training cutoff** and concluded that current methods **largely memorise ligand poses from their training data**, with accuracy falling sharply as similarity to the training set decreases (see the paper for the per-novelty-bin breakdown). Co-folding models interpolate well, extrapolate badly.
 
 Fine-tuning closes that gap. The proof point you're reproducing: **Apheris fine-tuned the public OF3 weights on 10 PDE10A protein–ligand complexes (~350 steps, ~20 h on one H100) and corrected systematic pose errors on 17 held-out structures**, with the biggest gains at the protein–ligand interface (interface lDDT, DockQ). This is a *nudge*, not a retrain — small LR, short warmup, faster EMA, few steps, so the model adapts to your target without forgetting everything else.
 
-For data you can't pool, the field is moving to **federated fine-tuning**: the *Federated OpenFold3 Initiative* (AbbVie, Astex, BMS, J&J, Takeda + Columbia's AlQuraishi Lab) jointly fine-tunes OF3 on proprietary complexes, exchanging only privacy-preserving updates (gradients / low-rank adapters), never raw structures. Mentioned here so you know the scaling path beyond your own data.
+For data you can't pool, the field is moving to **federated fine-tuning**: the *Federated OpenFold3 Initiative* (Apheris' AISB Network — AbbVie and Johnson & Johnson, joined in 2025 by Astex, Bristol Myers Squibb, and Takeda, with Columbia's AlQuraishi Lab) jointly fine-tunes OF3 across partners' proprietary complexes using federated computation, sharing only privacy-preserving model updates and never raw structures. Mentioned here so you know the scaling path beyond your own data.
 
 ---
 
@@ -350,6 +356,7 @@ Interface lDDT / DockQ up without protein regression ⇒ workflow validated; sca
 - aqlaboratory/openfold-3 inference/eval source (READ DIRECTLY): `openfold3/run_openfold.py` (predict CLI); `openfold3/core/runners/writer.py` (output naming + `sample_ranking_score`); `openfold3/core/metrics/quality.py` (lddt/interface_lddt/dockq/gdt); `examples/example_inference_inputs/query_*ligand*.json` (ligand input) — https://github.com/aqlaboratory/openfold-3
 - aqlaboratory/openfold-3 open issues (gotchas): #176 dots in query IDs, #188/#172 MSA format, #149 DataLoader workers, #162/#136 ligand conformer/geometry, #177 ROCm Evoformer — https://github.com/aqlaboratory/openfold-3/issues
 - NVIDIA BioNeMo OpenFold3 NIM — performance + OST/lDDT eval harness — https://docs.nvidia.com/nim/bionemo/openfold3/latest/performance.html
-- Runs N' Poses benchmark (novelty vs. accuracy) — https://www.biorxiv.org/content/10.1101/2025.02.03.636309v3
+- Runs N' Poses benchmark — Skrinjar, Eberhardt, Durairaj & Schwede, "Have protein–ligand co-folding methods moved beyond memorisation?" (bioRxiv, 2025; 2,600 post-cutoff systems) — https://www.biorxiv.org/content/10.1101/2025.02.03.636309
+- Federated OpenFold3 Initiative / AISB Network (members, federated fine-tuning) — https://www.apheris.com/resources/blog/aisb-network-expands-federated-openfold3-initiative-with-three-new-pharma-contrib
 - OpenFold Portal — https://portal.openfold.omsf.io/fine-tuning
 - OMSF — Behind the scenes: OpenFold3 design — https://omsf.substack.com/p/behind-the-scenes-openfold3-design
