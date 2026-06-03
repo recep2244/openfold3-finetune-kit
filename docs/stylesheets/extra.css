@@ -279,3 +279,13 @@
   .mermaid { background: #fff !important; }
   a, .md-typeset a { color: #0f766e !important; }
 }
+
+/* Forced-colors / Windows High Contrast: gradient-clipped headings use
+   color:transparent and would otherwise render invisible. */
+@media (forced-colors: active) {
+  .md-typeset h1 {
+    -webkit-text-fill-color: currentColor !important;
+    background: none !important;
+    color: CanvasText !important;
+  }
+}

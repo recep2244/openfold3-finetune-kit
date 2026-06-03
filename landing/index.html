@@ -66,10 +66,10 @@
           <a class="btn btn--line" href="https://github.com/recep2244/openfold3-finetune-kit">View on GitHub</a>
         </div>
         <dl class="hero__stats reveal" style="--d:4">
-          <div><dt>~350</dt><dd>steps to adapt</dd></div>
-          <div><dt>10</dt><dd>structures to start</dd></div>
+          <div><dt data-count="350" data-prefix="~">~350</dt><dd>steps to adapt</dd></div>
+          <div><dt data-count="10">10</dt><dd>structures to start</dd></div>
           <div><dt>12→80</dt><dd>GB GPU range</dd></div>
-          <div><dt>0</dt><dd>databases needed</dd></div>
+          <div><dt data-count="0">0</dt><dd>databases needed</dd></div>
         </dl>
       </div>
       <div class="hero__scroll" aria-hidden="true"><span></span>scroll</div>
@@ -89,8 +89,9 @@
           </p>
           <p class="muted">The implication: a general checkpoint is often weakest exactly where drug discovery lives — novel chemical matter on your target.</p>
         </div>
-        <figure class="chart reveal" aria-label="Illustration: prediction accuracy declines as novelty increases">
-          <div class="chart__grid">
+        <figure class="chart reveal" role="img" aria-label="Schematic: prediction accuracy declines as ligand novelty increases, from roughly 88% on familiar chemistry to about 20% on the most novel poses">
+          <p class="sr-only">Schematic bar chart, five bins from familiar to novel chemistry, with approximate success rates 88%, 70%, 52%, 34%, and 20%.</p>
+          <div class="chart__grid" aria-hidden="true">
             <span class="chart__bar" style="--h:88%"></span>
             <span class="chart__bar" style="--h:70%"></span>
             <span class="chart__bar" style="--h:52%"></span>
@@ -147,13 +148,18 @@
           <p class="lede">A successful fine-tune lifts the protein–ligand contact metrics while global accuracy holds steady.</p>
           <p class="muted">Illustrative of the expected direction — not measured benchmarks. Your deltas depend on the target and held-out difficulty.</p>
         </div>
-        <div class="readout reveal" role="table" aria-label="Illustrative metric shifts (baseline vs fine-tuned)">
-          <div class="readout__row readout__head" role="row"><span role="columnheader">metric</span><span role="columnheader">base</span><span role="columnheader">tuned</span><span role="columnheader">Δ</span></div>
-          <div class="readout__row" role="row"><span role="rowheader">lDDT</span><span role="cell">0.71</span><span role="cell">0.74</span><span class="up" role="cell">+0.03</span></div>
-          <div class="readout__row" role="row"><span role="rowheader">DockQ</span><span role="cell">0.41</span><span role="cell">0.58</span><span class="up" role="cell">+0.17</span></div>
-          <div class="readout__row" role="row"><span role="rowheader">lDDT-PLI</span><span role="cell">0.55</span><span role="cell">0.72</span><span class="up" role="cell">+0.17</span></div>
-          <div class="readout__row" role="row"><span role="rowheader">ligand RMSD</span><span role="cell">3.20</span><span role="cell">1.10</span><span class="down" role="cell">−2.10 Å</span></div>
-        </div>
+        <table class="readout reveal" aria-label="Illustrative metric shifts (baseline vs fine-tuned) — schematic, not measured">
+          <caption class="sr-only">Schematic expected pattern; not a measured benchmark.</caption>
+          <thead>
+            <tr><th scope="col">metric</th><th scope="col">base</th><th scope="col">tuned</th><th scope="col">Δ</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">lDDT</th><td>0.71</td><td>0.74</td><td class="up">+0.03</td></tr>
+            <tr><th scope="row">DockQ</th><td>0.41</td><td>0.58</td><td class="up">+0.17</td></tr>
+            <tr><th scope="row">lDDT-PLI</th><td>0.55</td><td>0.72</td><td class="up">+0.17</td></tr>
+            <tr><th scope="row">ligand RMSD</th><td>3.20</td><td>1.10</td><td class="down">−2.10 Å</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
