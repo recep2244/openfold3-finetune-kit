@@ -147,12 +147,12 @@
           <p class="lede">A successful fine-tune lifts the protein–ligand contact metrics while global accuracy holds steady.</p>
           <p class="muted">Illustrative of the expected direction — not measured benchmarks. Your deltas depend on the target and held-out difficulty.</p>
         </div>
-        <div class="readout reveal" role="table" aria-label="Illustrative metric shifts">
-          <div class="readout__row readout__head" role="row"><span>metric</span><span>base</span><span>tuned</span><span>Δ</span></div>
-          <div class="readout__row" role="row"><span>lDDT</span><span>0.71</span><span>0.74</span><span class="up">+0.03</span></div>
-          <div class="readout__row" role="row"><span>DockQ</span><span>0.41</span><span>0.58</span><span class="up">+0.17</span></div>
-          <div class="readout__row" role="row"><span>lDDT-PLI</span><span>0.55</span><span>0.72</span><span class="up">+0.17</span></div>
-          <div class="readout__row" role="row"><span>ligand RMSD</span><span>3.20</span><span>1.10</span><span class="down">−2.10 Å</span></div>
+        <div class="readout reveal" role="table" aria-label="Illustrative metric shifts (baseline vs fine-tuned)">
+          <div class="readout__row readout__head" role="row"><span role="columnheader">metric</span><span role="columnheader">base</span><span role="columnheader">tuned</span><span role="columnheader">Δ</span></div>
+          <div class="readout__row" role="row"><span role="rowheader">lDDT</span><span role="cell">0.71</span><span role="cell">0.74</span><span class="up" role="cell">+0.03</span></div>
+          <div class="readout__row" role="row"><span role="rowheader">DockQ</span><span role="cell">0.41</span><span role="cell">0.58</span><span class="up" role="cell">+0.17</span></div>
+          <div class="readout__row" role="row"><span role="rowheader">lDDT-PLI</span><span role="cell">0.55</span><span role="cell">0.72</span><span class="up" role="cell">+0.17</span></div>
+          <div class="readout__row" role="row"><span role="rowheader">ligand RMSD</span><span role="cell">3.20</span><span role="cell">1.10</span><span class="down" role="cell">−2.10 Å</span></div>
         </div>
       </div>
     </section>

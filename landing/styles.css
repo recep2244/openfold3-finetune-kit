@@ -10,6 +10,7 @@
   --phosphor: #5eead4;
   --amber:    #d97a36;
   --amber-d:  #b85f20;
+  --amber-tx: #9c4d16;   /* darker amber for small text on light — AA (>=4.5:1) */
   --paper:    #f5f9f7;
   --paper-2:  #eef4f1;
   --mint:     #bfe9e2;
@@ -89,7 +90,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   color: var(--teal); margin: 0 0 1rem;
 }
 .eyebrow--light { color: var(--phosphor); }
-.eyebrow--num { color: var(--amber-d); }
+.eyebrow--num { color: var(--amber-tx); }
 .h2 { font-family: var(--disp); font-weight: 600; font-size: clamp(1.8rem, 3.6vw, 2.7rem); line-height: 1.1; letter-spacing: -.015em; margin: 0 0 1rem; }
 .h2--light { color: #f4fffd; }
 .h2 em { font-style: italic; color: var(--teal); }
@@ -179,7 +180,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* hardware tiers */
 .tier { padding: 1.7rem; border-radius: 14px; background: #fff; border: 1px solid rgba(15,118,110,.16); transition: transform .2s var(--ease), box-shadow .2s; }
 .tier:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -26px rgba(12,43,41,.5); }
-.tier__gpu { color: var(--amber-d); font-size: .82rem; letter-spacing: .08em; }
+.tier__gpu { color: var(--amber-tx); font-size: .82rem; letter-spacing: .08em; }
 .tier h3 { font-family: var(--disp); font-size: 1.35rem; margin: .2rem 0 .5rem; }
 .tier p { margin: 0; color: var(--ink-soft); }
 .tier--feature { background: linear-gradient(160deg, var(--ink), var(--ink-2)); color: #eafaf7; border-color: transparent; }
@@ -216,4 +217,31 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .js .band .reveal, .js .cta .reveal { opacity: 1; transform: none; transition: none; }
   .chart__bar, .hero__scroll span { animation: none; }
   .btn:hover, .card:hover, .tier:hover { transform: none; }
+}
+
+/* ----------------- responsiveness + small-screen polish ----------- */
+.readout { overflow-x: auto; }
+.readout__row { min-width: 22rem; }
+@media (max-width: 520px) {
+  .hero__stats { gap: 1.2rem 2rem; }
+  .hero__stats dt { font-size: 1.5rem; }
+  .flow { grid-template-columns: 1fr; }
+}
+
+/* --------------- publication / print theme for figures ------------ */
+/* Renders the page (and especially figures: chart, readout, terminal)
+   as clean ink-on-white for screenshots, slides, and papers. */
+@media print {
+  .nav, .hero__scroll, .hero__canvas, .cta { display: none !important; }
+  body, .band, .band--ink, .hero, .cta, .foot { background: #fff !important; color: #000 !important; }
+  .hero, .band--ink { color: #000 !important; }
+  .h2, .h2--light, .hero__title, .foot__brand { color: #0c2b29 !important; -webkit-text-fill-color: #0c2b29 !important; }
+  .hero__lede, .lede, .muted, p { color: #1a1a1a !important; }
+  .readout { background: #fff !important; color: #0c2b29 !important; border: 1px solid #0c2b29; box-shadow: none !important; }
+  .readout__head { background: #eef4f1 !important; color: #0c2b29 !important; }
+  .readout .up { color: #0a6b2e !important; } .readout .down { color: #9c4d16 !important; }
+  .term__body, .term__bar { background: #f5f9f7 !important; color: #0c2b29 !important; }
+  .chart__grid, .card, .tier, .flow__step { box-shadow: none !important; border: 1px solid #0c2b29 !important; background: #fff !important; }
+  .flow__step h3, .flow__step p, .flow__n { color: #0c2b29 !important; }
+  a { color: #0f766e !important; text-decoration: underline; }
 }

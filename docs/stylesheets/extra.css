@@ -260,3 +260,22 @@
     transform: none !important;
   }
 }
+
+/* =============================================================================
+   Publication / print theme — clean ink-on-white for figures (tables, mermaid,
+   readouts) so docs pages and diagrams reproduce well in slides and papers.
+   ============================================================================= */
+@media print {
+  .md-header, .md-tabs, .md-sidebar, .md-footer, .md-content__button { display: none !important; }
+  .md-main, .md-content { background: #fff !important; }
+  .md-typeset, .md-typeset p, .md-typeset li { color: #111 !important; }
+  .md-typeset h1, .md-typeset h2, .md-typeset h3 {
+    color: #0c2b29 !important; -webkit-text-fill-color: #0c2b29 !important; background: none !important;
+  }
+  .md-typeset table:not([class]) { box-shadow: none !important; border: 1px solid #0c2b29 !important; }
+  .md-typeset table:not([class]) th { background: #eef4f1 !important; color: #0c2b29 !important; }
+  .md-typeset .admonition, .md-typeset details { box-shadow: none !important; border: 1px solid #0c2b29 !important; }
+  .md-typeset .grid.cards > ul > li { box-shadow: none !important; border: 1px solid #0c2b29 !important; }
+  .mermaid { background: #fff !important; }
+  a, .md-typeset a { color: #0f766e !important; }
+}
