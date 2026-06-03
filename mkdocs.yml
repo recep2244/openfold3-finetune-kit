@@ -50,11 +50,14 @@ nav:
       - Cloud (80 GB): cloud.md
   - Troubleshooting: troubleshooting.md
   - Background & rationale: background.md
-  - Portfolio ↗: https://github.com/recep2244
+  - Portfolio ↗: https://recep2244.github.io/portfolio/
   - OpenFold3 ↗: https://github.com/aqlaboratory/openfold-3
 
 extra:
   social:
+    - icon: material/web
+      link: https://recep2244.github.io/portfolio/
+      name: Portfolio — Recep Adiyaman
     - icon: fontawesome/brands/github
       link: https://github.com/recep2244
       name: Recep Adiyaman on GitHub

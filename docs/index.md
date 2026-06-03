@@ -2,7 +2,7 @@
 
 **Target-specific fine-tuning for [OpenFold3](https://github.com/aqlaboratory/openfold-3) — data preparation, training, and rigorous evaluation in one reproducible pipeline.**
 
-*Curated and maintained by [Recep Adiyaman](https://github.com/recep2244).*
+*Curated and maintained by [Recep Adiyaman](https://recep2244.github.io/portfolio/).*
 
 OpenFold3 is the Apache-2.0, all-atom co-folding model (an open reproduction of AlphaFold3). Like all co-folding models it interpolates well but extrapolates poorly: accuracy drops on chemistry far from its training distribution. This kit closes that gap for a *specific* target — a short, gentle fine-tune on ~10 protein–ligand complexes corrects systematic interface errors, then proves the gain on a held-out set.
 
@@ -41,8 +41,9 @@ flowchart LR
 
 ## Author & related
 
-Curated and maintained by **[Recep Adiyaman](https://github.com/recep2244)**.
+Curated and maintained by **[Recep Adiyaman](https://recep2244.github.io/portfolio/)**.
 
+- :material-web: [Portfolio](https://recep2244.github.io/portfolio/) — about me and other work
 - :fontawesome-brands-github: [GitHub profile](https://github.com/recep2244) · [all repositories](https://github.com/recep2244?tab=repositories)
 - :fontawesome-solid-dna: [OpenFold3 (upstream)](https://github.com/aqlaboratory/openfold-3) — the model this kit fine-tunes
 - :material-source-repository: [Project repository](https://github.com/recep2244/openfold3-finetune-kit)

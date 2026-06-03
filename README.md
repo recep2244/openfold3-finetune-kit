@@ -4,7 +4,7 @@
 
 **Target-specific fine-tuning for [OpenFold3](https://github.com/aqlaboratory/openfold-3) — data prep, training, and rigorous evaluation in one reproducible pipeline.**
 
-_Curated and maintained by [Recep Adiyaman](https://github.com/recep2244)._
+_Curated and maintained by [Recep Adiyaman](https://recep2244.github.io/portfolio/)._
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![CI](https://github.com/recep2244/openfold3-finetune-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/recep2244/openfold3-finetune-kit/actions/workflows/ci.yml)
@@ -155,8 +155,8 @@ Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and run `ma
 
 ## Maintainer & acknowledgements
 
-Curated and maintained by **[Recep Adiyaman](https://github.com/recep2244)** — [more projects](https://github.com/recep2244?tab=repositories).
+Curated and maintained by **[Recep Adiyaman](https://recep2244.github.io/portfolio/)** — [more projects](https://github.com/recep2244?tab=repositories).
 
 Built on [OpenFold3](https://github.com/aqlaboratory/openfold-3) by the OpenFold Consortium / AlQuraishi Lab. Fine-tuned weights derive from the public `openfold3-p2-155k` checkpoint; retain that attribution when redistributing.
 
-**Links:** [GitHub profile](https://github.com/recep2244) · [All repositories](https://github.com/recep2244?tab=repositories) · [OpenFold3 (upstream)](https://github.com/aqlaboratory/openfold-3) · [Documentation](https://recep2244.github.io/openfold3-finetune-kit/)
+**Links:** [Portfolio](https://recep2244.github.io/portfolio/) · [GitHub profile](https://github.com/recep2244) · [All repositories](https://github.com/recep2244?tab=repositories) · [OpenFold3 (upstream)](https://github.com/aqlaboratory/openfold-3) · [Documentation](https://recep2244.github.io/openfold3-finetune-kit/)
