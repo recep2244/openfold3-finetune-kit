@@ -93,7 +93,7 @@ A free T4 (16 GB) runs the smoke profile only; a real fine-tune needs an A100/H1
 
 ## Results
 
-A successful target fine-tune improves interface metrics without regressing global accuracy:
+A successful target fine-tune improves **interface** metrics (the protein–ligand contact and pose) without regressing global accuracy. The table below is an **illustrative pattern of the expected direction** — not measured benchmarks; your actual deltas depend on the target, the training set, and held-out difficulty.
 
 | Metric | Baseline | Fine-tuned | Δ | Direction |
 |---|---|---|---|---|
@@ -102,7 +102,7 @@ A successful target fine-tune improves interface metrics without regressing glob
 | lDDT-PLI | 0.55 | 0.72 | +0.17 | higher is better |
 | Ligand RMSD (Å) | 3.20 | 1.10 | −2.10 | lower is better |
 
-Per-structure scores are written to `<work>/eval/out/results.csv`.
+The scientific rationale: co-folding accuracy degrades with distance from the training distribution, and the largest, most correctable errors concentrate at the binding **interface** — so a gentle, interface-weighted fine-tune lifts DockQ / lDDT-PLI and lowers ligand RMSD while global lDDT holds. Your real per-structure scores are written to `<work>/eval/out/results.csv`; always confirm global lDDT did not drop (regression check) and run the [forgetting check](https://recep2244.github.io/openfold3-finetune-kit/pipeline/#forgetting-check).
 
 ## Documentation
 
