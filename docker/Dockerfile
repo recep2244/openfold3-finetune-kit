@@ -21,6 +21,14 @@ LABEL org.opencontainers.image.title="openfold3-finetune-kit" \
 RUN git clone --depth 1 https://github.com/aqlaboratory/openfold-3.git /opt/openfold-3 || \
     echo "warning: could not clone openfold-3 source; mount it at /opt/openfold-3 for data prep"
 
+# Data-prep dependencies the OpenFold3 scripts need that the base image may lack:
+#   biopython -> MSA representatives step;  mmseqs2 -> dataset-cache clustering.
+RUN pip install --no-cache-dir biopython || echo "warn: biopython install failed" && \
+    ( wget -qO /tmp/mmseqs.tar.gz https://mmseqs.com/latest/mmseqs-linux-avx2.tar.gz && \
+      tar xzf /tmp/mmseqs.tar.gz -C /opt && rm -f /tmp/mmseqs.tar.gz && \
+      ln -sf /opt/mmseqs/bin/mmseqs /usr/local/bin/mmseqs ) || \
+    echo "warn: mmseqs2 install failed; install it manually for data prep"
+
 WORKDIR /kit
 COPY scripts/ ./scripts/
 COPY configs/ ./configs/

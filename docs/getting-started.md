@@ -7,7 +7,20 @@ fine-tune, continue to the [Tutorial](tutorial.md).
 
 - Linux with an NVIDIA GPU and driver supporting **CUDA ≥ 12.1**.
 - ~10 GB free disk for the environment and model weights.
+- **For data preparation (`run_all.sh`):** two tools the OpenFold3 scripts need that the
+  `openfold3-cuda12` env does not always include — install them into the env:
+  ```bash
+  pip install biopython                                 # MSA representatives step
+  conda install -c conda-forge -c bioconda mmseqs2      # sequence clustering in the dataset cache
+  ```
 - For evaluation scoring only: Docker (to run the OpenStructure image).
+
+!!! note "OpenFold3 is a moving target — pin a commit"
+    This kit tracks `aqlaboratory/openfold-3` **`main`**, which changes its data-prep schema
+    over time (e.g. the MSA key `bfd_uniref_hits` → `bfd_hits`). For reproducibility, check out
+    a known-good commit (`git -C ~/openfold-3 checkout <sha>`) and record it in your
+    [reference run](https://recep2244.github.io/openfold3-finetune-kit/). The kit's scripts
+    target current `main` as of mid-2026.
 
 ## 1. Install pixi
 
