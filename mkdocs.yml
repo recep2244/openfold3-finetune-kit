@@ -57,13 +57,19 @@ extra:
   social:
     - icon: material/web
       link: https://recep2244.github.io/portfolio/
-      name: Portfolio — Recep Adiyaman
+      name: Portfolio
     - icon: fontawesome/brands/github
       link: https://github.com/recep2244
-      name: Recep Adiyaman on GitHub
-    - icon: material/folder-multiple
-      link: https://github.com/recep2244?tab=repositories
-      name: More projects
+      name: GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/recep-ad%C4%B1yaman/
+      name: LinkedIn
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/RcpAdymn
+      name: X (Twitter)
+    - icon: simple/googlescholar
+      link: https://scholar.google.com/citations?user=4UUzdMsAAAAJ&hl=en
+      name: Google Scholar
     - icon: fontawesome/solid/dna
       link: https://github.com/aqlaboratory/openfold-3
       name: OpenFold3 (upstream)

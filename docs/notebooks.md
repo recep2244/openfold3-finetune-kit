@@ -133,6 +133,23 @@ flowchart LR
     Seeds are fixed in the pipeline; the same inputs on the same GPU class reproduce results.
     Notebooks are committed with cleared outputs, so a fresh run starts from a clean state.
 
-## Related
+## Let's collaborate
 
-[Getting started](getting-started.md){ .md-button } [Tutorial](tutorial.md){ .md-button } [Troubleshooting](troubleshooting.md){ .md-button }
+I curate this kit personally and keep it running on real hardware — from an 80 GB cloud GPU
+down to a 12 GB laptop. If a notebook saved you time, I'd genuinely like to hear about it; and
+if something's missing or rough, that's exactly the feedback that makes it better.
+
+- :octicons-issue-opened-16: **Hit a snag or a rough edge?** [Open an issue](https://github.com/recep2244/openfold3-finetune-kit/issues/new/choose) — the templates make it a two-minute report.
+- :octicons-git-pull-request-16: **Improved a notebook or a script?** Pull requests are very welcome — run `make lint` first and tell me what you tested.
+- :material-flask-outline: **Working on co-folding, docking, or target-specific fine-tuning?** I'd love to compare notes or help adapt the kit to your system — reach out on any channel below.
+
+[:material-web: Portfolio](https://recep2244.github.io/portfolio/){ .md-button .md-button--primary }
+[:fontawesome-brands-linkedin: LinkedIn](https://www.linkedin.com/in/recep-ad%C4%B1yaman/){ .md-button }
+[:fontawesome-brands-x-twitter: X](https://x.com/RcpAdymn){ .md-button }
+[:simple-googlescholar: Scholar](https://scholar.google.com/citations?user=4UUzdMsAAAAJ&hl=en){ .md-button }
+[:fontawesome-brands-github: GitHub](https://github.com/recep2244){ .md-button }
+[:material-email: Email](mailto:recepadiyaman2244@gmail.com){ .md-button }
+
+---
+
+**Keep exploring:** [Getting started](getting-started.md){ .md-button } [Tutorial](tutorial.md){ .md-button } [Troubleshooting](troubleshooting.md){ .md-button }
