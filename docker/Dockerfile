@@ -13,6 +13,7 @@ FROM openfoldconsortium/openfold3:stable
 
 LABEL org.opencontainers.image.title="openfold3-finetune-kit" \
       org.opencontainers.image.source="https://github.com/recep2244/openfold3-finetune-kit" \
+      org.opencontainers.image.authors="Recep Adiyaman (https://github.com/recep2244)" \
       org.opencontainers.image.licenses="Apache-2.0"
 
 # OpenFold3 source (for the data-preprocessing scripts prepare_data.sh calls).

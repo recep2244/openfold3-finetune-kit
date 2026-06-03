@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Curated by Recep Adiyaman — https://github.com/recep2244/openfold3-finetune-kit
 # =============================================================================
 # run_all.sh — end-to-end OpenFold3 target fine-tuning pipeline.
 # -----------------------------------------------------------------------------

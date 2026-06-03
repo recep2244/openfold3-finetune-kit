@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Curated by Recep Adiyaman — https://github.com/recep2244/openfold3-finetune-kit
 # =============================================================================
 # run_small_test.sh — minimal END-TO-END fine-tune smoke test.
 # -----------------------------------------------------------------------------

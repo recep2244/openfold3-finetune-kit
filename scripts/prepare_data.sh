@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Curated by Recep Adiyaman — https://github.com/recep2244/openfold3-finetune-kit
 # =============================================================================
 # prepare_data.sh — end-to-end OpenFold3 fine-tuning data pipeline for a
 #                   STARTER SET of PDB IDs.

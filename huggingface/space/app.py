@@ -6,6 +6,8 @@ server) and renders the predicted structure with 3Dmol.js. Point INFERENCE_CKPT
 at a fine-tuned checkpoint to serve your own tuned model.
 
 Needs a GPU Space. Install deps from requirements.txt (includes openfold3).
+
+Curated by Recep Adiyaman — https://github.com/recep2244/openfold3-finetune-kit
 """
 
 import json

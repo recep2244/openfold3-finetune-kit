@@ -4,6 +4,8 @@
 
 **Target-specific fine-tuning for [OpenFold3](https://github.com/aqlaboratory/openfold-3) — data prep, training, and rigorous evaluation in one reproducible pipeline.**
 
+_Curated and maintained by [Recep Adiyaman](https://github.com/recep2244)._
+
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![CI](https://github.com/recep2244/openfold3-finetune-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/recep2244/openfold3-finetune-kit/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/badge/docs-mkdocs--material-blue)](https://recep2244.github.io/openfold3-finetune-kit/)
@@ -124,10 +126,23 @@ examples/     default target (PDE10A) ID lists
 
 Please also cite [OpenFold3](https://github.com/aqlaboratory/openfold-3).
 
+## About
+
+I put this kit together because target-specific OpenFold3 fine-tuning involves a lot of
+fiddly, easy-to-get-wrong plumbing — data preprocessing, MSAs, checkpoint loading quirks,
+and evaluation — and I wanted a path that just works and is reproducible end-to-end. Every
+config key and flag here was checked against the OpenFold3 source, and the setup was verified
+on real hardware (down to a 12 GB laptop GPU for the smoke test). If it saves you an afternoon
+of debugging, it did its job. Issues and PRs are welcome.
+
+— Recep Adiyaman ([@recep2244](https://github.com/recep2244))
+
 ## Contributing & license
 
 Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and run `make lint` before opening a PR. Licensed under [Apache-2.0](LICENSE).
 
-## Acknowledgements
+## Maintainer & acknowledgements
+
+Curated and maintained by **[Recep Adiyaman](https://github.com/recep2244)**.
 
 Built on [OpenFold3](https://github.com/aqlaboratory/openfold-3) by the OpenFold Consortium / AlQuraishi Lab. Fine-tuned weights derive from the public `openfold3-p2-155k` checkpoint; retain that attribution when redistributing.

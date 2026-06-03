@@ -14,6 +14,8 @@ Examples
       --repo-id recep2244/openfold3-pde10a
 
   python huggingface/upload_to_hub.py --ckpt last.ckpt --repo-id me/of3-mytarget --private
+
+Curated by Recep Adiyaman — https://github.com/recep2244/openfold3-finetune-kit
 """
 
 import argparse

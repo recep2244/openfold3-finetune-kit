@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Curated by Recep Adiyaman — https://github.com/recep2244/openfold3-finetune-kit
 # =============================================================================
 # verify_setup.sh — prove the OpenFold3 install is READY before you fine-tune.
 # -----------------------------------------------------------------------------
