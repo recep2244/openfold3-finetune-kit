@@ -5,6 +5,22 @@ All notable changes to this project are documented here. The format is based on
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Standalone scientific **landing page** (`landing/`) served at the site root, with the
+  MkDocs documentation under `/docs/`.
+- Custom Material theme (pine-teal/phosphor/amber, IBM Plex + Fraunces), brand logo/favicon,
+  and auto-generated per-page **social preview cards**.
+- Scientific scoring tools: `qc_gate.py` (composite QC gate + ranker), `ipsae_score.sh`
+  (reference-free interface confidence), `foldseek_search.sh` (homolog/novelty search), and a
+  "Scoring & QC" docs page.
+- Cloud notebooks (setup/verify, full pipeline, inference) and a "Notebooks" docs page.
+- Bats shell-script tests + CI job; Dependabot; `.zenodo.json` for citable releases.
+
+### Changed
+- Accessibility hardening (WCAG contrast, ARIA table roles, focus-visible, reduced-motion,
+  responsive reflow) and a print/"publication" figure theme.
+- Verified and tightened the scientific claims in the background doc against primary sources.
+- Bumped GitHub Actions and gradio to current versions.
 
 ## [0.1.0] - 2026-06-03
 ### Added

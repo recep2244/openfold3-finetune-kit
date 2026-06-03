@@ -78,6 +78,11 @@ bash scripts/run_all.sh
 | `scripts/check_data.sh` | Preflight data integrity check |
 | `scripts/evaluate.sh` | Score baseline vs fine-tuned on the held-out set |
 | `scripts/run_small_test.sh` | Minimal end-to-end smoke test on tiny data |
+| `scripts/qc_gate.py` | Composite QC gate + ranker for predictions |
+| `scripts/ipsae_score.sh` | Reference-free interface confidence (ipSAE) |
+| `scripts/foldseek_search.sh` | Structural homolog / novelty search |
+
+See [Scoring & QC](https://recep2244.github.io/openfold3-finetune-kit/docs/scoring/) for the scientific tooling.
 
 ## Notebooks
 
@@ -106,11 +111,12 @@ The scientific rationale: co-folding accuracy degrades with distance from the tr
 
 ## Documentation
 
-Full documentation: **https://recep2244.github.io/openfold3-finetune-kit/**
+Landing page: **https://recep2244.github.io/openfold3-finetune-kit/** · Full docs: **https://recep2244.github.io/openfold3-finetune-kit/docs/**
 — [Getting started](https://recep2244.github.io/openfold3-finetune-kit/docs/getting-started/) ·
 [Tutorial](https://recep2244.github.io/openfold3-finetune-kit/docs/tutorial/) ·
 [How it works](https://recep2244.github.io/openfold3-finetune-kit/docs/pipeline/) ·
 [Configuration](https://recep2244.github.io/openfold3-finetune-kit/docs/configuration/) ·
+[Scoring & QC](https://recep2244.github.io/openfold3-finetune-kit/docs/scoring/) ·
 [Troubleshooting](https://recep2244.github.io/openfold3-finetune-kit/docs/troubleshooting/)
 
 ## Project layout
