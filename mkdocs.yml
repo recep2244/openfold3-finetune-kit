@@ -9,6 +9,8 @@ copyright: Curated by Recep Adiyaman · Apache-2.0
 
 theme:
   name: material
+  logo: assets/logo.png
+  favicon: assets/favicon.png
   icon:
     repo: fontawesome/brands/github
   font:
