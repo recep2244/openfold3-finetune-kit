@@ -127,6 +127,28 @@ else
   ok "CUDA_HOME not overridden (correct for the pixi env)"
 fi
 
+# 5b. Data-prep tools (BioPython + MMseqs2) -----------------------------------
+# Inference (this verifier's smoke test) does NOT need these, but run_all.sh's
+# data preparation does — so warn rather than fail when they are missing.
+hdr "5b. Data-prep tools (needed by run_all.sh, not by inference)"
+# Run a snippet inside the OpenFold3 env (directly if run_openfold is on PATH).
+if command -v run_openfold >/dev/null 2>&1; then
+  env_sh() { bash -c "$1"; }
+else
+  # pixi must run from inside the openfold-3 workspace to resolve the env.
+  env_sh() { ( cd "$OF3_REPO" 2>/dev/null && "$PIXI_BIN" run -e "$PIXI_ENV" bash -c "$1" ); }
+fi
+if env_sh 'python -c "import Bio"' >/dev/null 2>&1; then
+  ok "BioPython present (MSA representatives step)"
+else
+  warn "BioPython missing — data prep will fail at the MSA-representatives step. Fix: pip install biopython (inside the env)."
+fi
+if env_sh 'command -v mmseqs >/dev/null'; then
+  ok "MMseqs2 on PATH (dataset-cache clustering)"
+else
+  warn "MMseqs2 not found — data prep will fail at dataset clustering. Fix: conda install -c conda-forge -c bioconda mmseqs2 (or the static binary on PATH)."
+fi
+
 # 6. GPU + memory --------------------------------------------------------------
 hdr "6. GPU"
 if command -v nvidia-smi >/dev/null 2>&1; then

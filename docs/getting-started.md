@@ -67,11 +67,12 @@ cd openfold3-finetune-kit
 make verify        # or: bash scripts/verify_setup.sh
 ```
 
-A healthy result ends with:
+A healthy result ends with **`0 failed`** — for example:
 
 ```text
-SUMMARY:  10 passed, 1 warnings, 0 failed
+SUMMARY:  10 passed, 3 warnings, 0 failed
 ```
 
-The single warning is expected on GPUs under 24 GB (smoke-test profile only). You are
-now ready for the [Tutorial](tutorial.md).
+Warnings are expected and non-fatal: a GPU under 24 GB (smoke-test profile only), and the
+data-prep tools (BioPython, MMseqs2) if you haven't installed them yet — those are needed by
+`run_all.sh`, not by inference. With `0 failed`, you're ready for the [Tutorial](tutorial.md).
