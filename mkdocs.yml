@@ -11,18 +11,21 @@ theme:
   name: material
   icon:
     repo: fontawesome/brands/github
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: indigo
+      primary: teal
+      accent: teal
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: teal
+      accent: teal
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -36,6 +39,9 @@ theme:
     - content.tabs.link
     - search.suggest
     - search.highlight
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md

@@ -30,6 +30,7 @@ site/
 # ---- env / tooling ----
 .pixi/
 .ruff_cache/
+.agents/
 .venv/
 venv/
 __pycache__/

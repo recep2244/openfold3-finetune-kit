@@ -1,0 +1,152 @@
+/* =============================================================================
+   openfold3-finetune-kit — custom theme
+   Aesthetic: "laboratory instrument / structural-biology journal"
+   Deep pine-teal ink · phosphor-teal accent · warm amber CTA · Fraunces display
+   ============================================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap");
+
+:root {
+  --of3-ink:        #0c2b29;  /* deep pine-teal */
+  --of3-ink-2:      #0e3330;
+  --of3-teal:       #0f766e;  /* link/accent (AA on white) */
+  --of3-teal-bright:#14b8a6;  /* hover / dark-mode accent */
+  --of3-amber:      #d97a36;  /* warm CTA */
+  --of3-amber-deep: #b85f20;
+  --of3-display: "Fraunces", "IBM Plex Sans", Georgia, serif;
+}
+
+/* ---- light scheme -------------------------------------------------------- */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        var(--of3-ink);
+  --md-primary-fg-color--light: var(--of3-ink-2);
+  --md-primary-fg-color--dark:  #08201e;
+  --md-accent-fg-color:         var(--of3-teal-bright);
+  --md-typeset-a-color:         var(--of3-teal);
+  --md-default-bg-color:        #fbfdfc;
+}
+
+/* ---- dark scheme --------------------------------------------------------- */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #08201e;
+  --md-accent-fg-color:         var(--of3-teal-bright);
+  --md-typeset-a-color:         #5eead4;
+  --md-default-bg-color:        #0a1816;
+  --md-default-fg-color--light: #c8d6d2;
+}
+
+/* ---- typography ---------------------------------------------------------- */
+.md-typeset h1,
+.md-typeset h2 {
+  font-family: var(--of3-display);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+.md-typeset h1 {
+  font-weight: 700;
+  font-size: 2.3rem;
+  line-height: 1.12;
+  background: linear-gradient(95deg, var(--of3-ink) 0%, var(--of3-teal) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  background: linear-gradient(95deg, #e7fffb 0%, var(--of3-teal-bright) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.md-typeset h2 {
+  margin-top: 2.4em;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--of3-teal) 22%, transparent);
+}
+.md-header__title { font-weight: 600; letter-spacing: -0.01em; }
+
+/* thin molecular accent line under the header */
+.md-header { box-shadow: 0 2px 0 0 color-mix(in srgb, var(--of3-teal-bright) 55%, transparent); }
+
+/* ---- hero strip on the home page (first content block) ------------------- */
+.md-content__inner > h1:first-of-type {
+  margin-top: 0.6em;
+}
+.md-content__inner > h1:first-of-type::after {
+  content: "";
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  margin-top: 0.7rem;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--of3-teal-bright), var(--of3-amber));
+}
+
+/* ---- grid cards ---------------------------------------------------------- */
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid > .card {
+  border: 1px solid color-mix(in srgb, var(--of3-teal) 18%, transparent);
+  border-radius: 12px;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.md-typeset .grid.cards > ul > li:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--of3-teal-bright) 60%, transparent);
+  box-shadow: 0 12px 28px -14px color-mix(in srgb, var(--of3-ink) 55%, transparent);
+}
+.md-typeset .grid.cards > ul > li > hr {
+  border-bottom: 2px solid color-mix(in srgb, var(--of3-teal-bright) 45%, transparent);
+}
+
+/* ---- buttons ------------------------------------------------------------- */
+.md-typeset .md-button {
+  border-radius: 9px;
+  border-width: 1.5px;
+  font-weight: 600;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.md-typeset .md-button:hover { transform: translateY(-2px); }
+.md-typeset .md-button--primary {
+  background: var(--of3-amber);
+  border-color: var(--of3-amber);
+  color: #fff;
+}
+.md-typeset .md-button--primary:hover {
+  background: var(--of3-amber-deep);
+  border-color: var(--of3-amber-deep);
+  box-shadow: 0 10px 22px -12px var(--of3-amber);
+}
+
+/* ---- admonitions: tighten + brand the common ones ------------------------ */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 10px;
+  border-left-width: 4px;
+}
+.md-typeset .admonition.tip,
+.md-typeset .admonition.success { border-left-color: var(--of3-teal-bright); }
+.md-typeset .admonition.note,
+.md-typeset .admonition.info { border-left-color: var(--of3-teal); }
+.md-typeset .admonition.quote { border-left-color: var(--of3-amber); }
+
+/* ---- code, tables, misc -------------------------------------------------- */
+.md-typeset pre > code { border-radius: 10px; }
+.md-typeset table:not([class]) {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--of3-teal) 14%, transparent);
+}
+.md-typeset table:not([class]) th {
+  background: color-mix(in srgb, var(--of3-teal) 12%, var(--md-default-bg-color));
+  font-weight: 600;
+}
+.md-typeset__scrollwrap { scrollbar-color: var(--of3-teal) transparent; }
+
+/* subtle dotted texture behind content for depth (very faint) */
+.md-main {
+  background-image: radial-gradient(color-mix(in srgb, var(--of3-teal) 7%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+[data-md-color-scheme="slate"] .md-main {
+  background-image: radial-gradient(rgba(94, 234, 212, 0.05) 1px, transparent 1px);
+}
+.md-content { background: var(--md-default-bg-color); border-radius: 12px; }
