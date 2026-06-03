@@ -12,7 +12,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: ShellCheck (scripts)
         uses: ludeeus/action-shellcheck@master
@@ -23,7 +23,7 @@ jobs:
       - name: Bash syntax check
         run: for s in scripts/*.sh docker/entrypoint.sh; do bash -n "$s"; done
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -51,7 +51,7 @@ jobs:
   scripts-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install Bats
         uses: bats-core/bats-action@3.0.0
       - name: Run shell script tests
@@ -60,8 +60,8 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: Build docs (strict, with social cards)
